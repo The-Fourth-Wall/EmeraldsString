@@ -10,10 +10,10 @@ UNUSED_WARNINGS = -Wno-unused-parameter -Wno-unused-variable -Wno-unused-functio
 REMOVE_WARNINGS = -Wno-int-conversion
 NIX_LIBS = -shared -fPIC
 OSX_LIBS = -c
-DEPS = $(shell find ./libs -name "*.*o" | xargs ls -d)
+DEPS = $(shell find ./export -name "*.*o") $(shell find ./libs -name "*.*o")
 
 INPUTFILES = src/$(NAME)/*.c
-#INPUT = src/$(NAME).c
+INPUT = src/$(NAME).c
 OUTPUT = $(NAME)
 
 TESTFILES = src/$(NAME)/*.c
@@ -35,6 +35,7 @@ default: make_export
 	mv $(OUTPUT) export/
 
 lib: $(shell uname)
+	cp $(shell find ./libs -name "*.*o") export/
 
 Darwin: make_export copy_headers
 	$(CC) $(OPT) $(VERSION) $(FLAGS) $(WARNINGS) $(REMOVE_WARNINGS) $(UNUSED_WARNINGS) $(OSX_LIBS) $(INPUTFILES)
