@@ -41,12 +41,19 @@ int main(void) {
     string *strValue5 = string_new("test value 5");
     
     printf("BEFORE: %s, %s, %s, %s, %s\n", string_get(strValue1), string_get(strValue2), string_get(strValue3), string_get(strValue4), string_get(strValue5));
-    free(strValue1);
-    free(strValue2);
-    free(strValue3);
-    free(strValue4);
-    free(strValue5);
+    string_free(strValue1);
+    string_free(strValue2);
+    string_free(strValue3);
+    string_free(strValue4);
+    string_free(strValue5);
     printf("AFTER:  %p, %p, %p, %p, %p\n\n", string_get(strValue1), string_get(strValue2), string_get(strValue3), string_get(strValue4), string_get(strValue5));
 
+    string_free(iter);
+    string_free(str_to_split);
+    string_free(delimeter_to_use);
+    string_free(one);
+    string_free(two);
+
+    vector_free(list_of_tokens);
     return 0;
 }

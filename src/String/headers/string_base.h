@@ -138,4 +138,11 @@ unsigned char string_equals(string *sb, string *other);
  **/
 char *string_identifier(string *sb);
 
+/**
+ * @func: string_free
+ * @brief Frees the memory of the string
+ * @param sb -> The string to free
+ */
+void string_free(string *sb);
+
 #endif

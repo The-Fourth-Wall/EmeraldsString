@@ -169,3 +169,8 @@ char *string_identifier(string *sb) {
 
     return string_get(ret_value);
 }
+
+void string_free(string *sb) {
+    free(sb->str);
+    free(sb);
+}
