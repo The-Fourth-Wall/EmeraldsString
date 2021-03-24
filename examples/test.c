@@ -46,7 +46,7 @@ int main(void) {
     string_free(strValue3);
     string_free(strValue4);
     string_free(strValue5);
-    printf("AFTER:  %p, %p, %p, %p, %p\n\n", string_get(strValue1), string_get(strValue2), string_get(strValue3), string_get(strValue4), string_get(strValue5));
+    printf("AFTER:  %p, %p, %p, %p, %p\n\n", (void*)string_get(strValue1), (void*)string_get(strValue2), (void*)string_get(strValue3), (void*)string_get(strValue4), (void*)string_get(strValue5));
 
     string_free(iter);
     string_free(str_to_split);
