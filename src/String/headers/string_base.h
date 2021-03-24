@@ -1,10 +1,11 @@
 #ifndef __STRING_BASE_H_
 #define __STRING_BASE_H_
 
+#include <stdio.h>  /* printf, snprintf */
 #include <stdlib.h> /* malloc, calloc, realloc, free */
+#include <string.h> /* strlen, strcmp, memmove */
 
-#include "standard_io.h" /* printf, snprintf */
-#include "standard_string.h" /* strlen, strcmp, memmove */
+#include "../../../libs/Bool/export/Bool.h"
 
 /** The initial minimum size of a string **/
 static const size_t string_init_capacity = 32;
