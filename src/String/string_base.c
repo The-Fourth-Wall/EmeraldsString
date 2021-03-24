@@ -1,26 +1,19 @@
 #include "headers/string_base.h"
 
-static void string_ensure_space(string *sb, size_t add_len) {
-    if(sb == NULL || add_len == 0) return;
+#define GOLDEN_MEAN 1.618
 
-    /* If out allocated space is big enough */
-    if(sb->alloced >= sb->length+add_len + 1) return;
+static void string_ensure_space(string *sb, size_t capacity) {
+    char *new_str = NULL;
+    if(sb == NULL || capacity == 0) return;
 
-    while (sb->alloced < sb->length+add_len + 1) {
-        /* Doubling growth strategy */
-        sb->alloced <<= 1;
-        if(sb->alloced == 0) {
-            /* Left shift of max bits will go to 0. An unsigned type set to
-             * -1 will return the maximum possible size. However, we should
-             *  have run out of memory well before we need to do this. Since
-             *  this is the theoretical maximum total system memory we don't
-             *  have a flag saying we can't grow any more because it should
-             *  be impossible to get to this point */
-            sb->alloced--;
-        }
+    /* Attempt to reallocate new memory in the items list */
+    new_str = (char*)realloc(sb->str, sizeof(char*) * capacity);
+
+    if(new_str) {
+        /* Reset the items in the new memory space */
+        sb->str = new_str;
+        sb->alloced = capacity;
     }
-    /* TODO -> PROB CREATES THE MEMORY PROBLEM */
-    sb->str = (char*)realloc(sb->str, sb->alloced);
 }
 
 string *string_new(char *initial_string) {
@@ -43,7 +36,9 @@ void string_add_str(string *sb, const char *str) {
     if(sb == NULL || str == NULL || *str == '\0') return;
 
     len = strlen(str);
-    string_ensure_space(sb, len);
+    
+    if(sb->alloced == sb->length)
+        string_ensure_space(sb, sb->alloced * GOLDEN_MEAN);
 
     /* Copy the value into memory */
     /* TODO -> CARE FOR CUSTOM MEMMOVE ALSO POSSIBLE CANDIDATE FOR MEMORY ERRORS */
@@ -57,7 +52,8 @@ void string_add_str(string *sb, const char *str) {
 void string_add_char(string *sb, char c) {
     if(sb == NULL) return;
 
-    string_ensure_space(sb, 1);
+    if(sb->alloced == sb->length)
+        string_ensure_space(sb, sb->alloced * GOLDEN_MEAN);
 
     sb->str[sb->length] = c;
     sb->length++;
@@ -65,7 +61,7 @@ void string_add_char(string *sb, char c) {
 }
 
 void string_add_int(string *sb, int val) {
-    char str[1024];
+    char str[32];
 
     if(sb == NULL) return;
 
@@ -74,7 +70,7 @@ void string_add_int(string *sb, int val) {
 }
 
 void string_add_double_precision(string *sb, double val) {
-    char str[1024];
+    char str[64];
 
     if(sb == NULL) return;
 
