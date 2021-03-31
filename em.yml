@@ -2,8 +2,8 @@ name: String
 version: 0.1.0
 
 dependencies:
-  Bool: Oblivious-Oblivious/Bool
-  Vector: Oblivious-Oblivious/Vector
+  Bool: EmeraldsFramework/Bool
+  Vector: EmeraldsFramework/Vector
 
 dev-dependencies:
   cSpec: Oblivious-Oblivious/cSpec
