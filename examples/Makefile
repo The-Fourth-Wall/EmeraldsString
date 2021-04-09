@@ -15,7 +15,7 @@ INPUT = $(NAME).c
 all: default
 
 make_library:
-	cd .. && em build lib && cd examples
+	cd .. && em build lib release && cd examples
 
 default: make_library
 	$(CC) $(OPT) $(VERSION) $(HEADERS) $(FLAGS) $(WARNINGS) $(PRINT_WARNINGS) $(C99_WARNINGS) $(LIBS) -o $(OUTPUT) $(INPUT)
