@@ -29,6 +29,7 @@ int main(void) {
 
 ## Development
 
+* Write usage docs
 * Write tests
 
 ## Contributing
