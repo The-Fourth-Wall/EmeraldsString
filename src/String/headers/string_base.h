@@ -4,6 +4,7 @@
 #include <stdio.h>  /* printf, snprintf */
 #include <stdlib.h> /* malloc, calloc, realloc, free */
 #include <string.h> /* strlen, strcmp, memmove */
+#include <stdarg.h> /* va_start, va_end, va_arg */
 
 #include "../../../libs/Bool/export/Bool.h"
 
@@ -38,6 +39,15 @@ static void string_ensure_space(string *sb, size_t add_len);
  * @return The str builder
  **/
 string *string_new(char *initial_string);
+
+/**
+ * @func: string_addf
+ * @brief Adds a formatted string into the builder
+ * @param sb -> The str builder ot add to
+ * @param f -> The format string to use
+ * @param ... -> The rest of the arguments
+ */
+void string_addf(string *sb, const char *f, ...);
 
 /**
  * @func: string_add_str

@@ -30,6 +30,21 @@ string *string_new(char *initial_string) {
     return sb;
 }
 
+void string_addf(string *sb, const char *f, ...) {
+    #define BIG_NUMBA 16384 /* TODO -> BOUNDS CHECKS */
+    signed int result = 0;
+    char buf[BIG_NUMBA];
+    va_list args;
+
+    va_start(args, f);
+        result = vsnprintf(buf, sizeof(buf), f, args);
+    va_end(args);
+
+    if(result < 0) return;
+
+    string_add_str(sb, buf);
+}
+
 void string_add_str(string *sb, const char *str) {
     size_t len;
     
@@ -41,7 +56,6 @@ void string_add_str(string *sb, const char *str) {
         string_ensure_space(sb, sb->alloced * GOLDEN_MEAN);
 
     /* Copy the value into memory */
-    /* TODO -> CARE FOR CUSTOM MEMMOVE ALSO POSSIBLE CANDIDATE FOR MEMORY ERRORS */
     memmove(sb->str+sb->length, str, len);
 
     /* Reset length and NULL terminate */
@@ -101,7 +115,8 @@ void string_shorten(string *sb, size_t len) {
 void string_delete(string *sb) {
     if(sb == NULL) return;
 
-    /* Call truncate with 0, clearing out the string */
+    /* Call shorten with 0, clearing out the string */
+    string_free(sb);
     string_shorten(sb, 0);
 }
 
