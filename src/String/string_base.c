@@ -116,8 +116,8 @@ void string_delete(string *sb) {
     if(sb == NULL) return;
 
     /* Call shorten with 0, clearing out the string */
-    string_free(sb);
     string_shorten(sb, 0);
+    string_free(sb);
 }
 
 void string_skip(string *sb, size_t len) {
