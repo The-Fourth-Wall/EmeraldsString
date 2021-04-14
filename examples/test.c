@@ -5,6 +5,10 @@ void print_strings(string *element) {
     printf("%s\n", string_get(element));
 }
 
+void free_strings(string *element) {
+    string_free(element);
+}
+
 void print_chars(char c) {
     printf("char: `%c`\n", c);
 }
@@ -42,6 +46,7 @@ static void string_split_test(void) {
 	vector_map(list_of_tokens, (vector_lambda)print_strings);
     printf("ORIGINAL: %s\n", string_get(str_to_split));
     printf("\n");
+    vector_map(list_of_tokens, (vector_lambda)free_strings);
     string_free(str_to_split);
     string_free(delimeter_to_use);
     vector_free(list_of_tokens);
