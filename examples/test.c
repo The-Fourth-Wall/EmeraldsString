@@ -21,11 +21,13 @@ int main(void) {
     printf("Iteration of `o b l i v i o u s`\n");
     string_iterate(iter, (string_lambda)print_chars);
     printf("\n");
+    string_free(iter);
 
     printf("TESTING STRING ADD FORMAT\n");
     string *format_buf = string_new("");
     string_addf(format_buf, "%d plus %d is %d, %s, (%g - %g = %g)", 1, 1, 1+1, "This is nice", 5.3, 1.1, 5.3-1.1);
     printf("%s\n\n", string_get(format_buf));
+    string_free(format_buf);
 	
     printf("TESTING STRING SPLIT\n");
     string *str_to_split = string_new("cut me in pieces");
@@ -34,11 +36,16 @@ int main(void) {
 	vector_map(list_of_tokens, (vector_lambda)print_strings);
     printf("ORIGINAL: %s\n", string_get(str_to_split));
     printf("\n");
+    string_free(str_to_split);
+    string_free(delimeter_to_use);
+    vector_free(list_of_tokens);
 
     printf("TESTING STRING EQUALITY\n");
     string *one = string_new("test");
     string *two = string_new("test");
     if(string_equals(one, two)) printf("strings `one(\"test\")` and `two(\"test\")` are equal\n\n");
+    string_free(one);
+    string_free(two);
 
     printf("TESTING (LITTERBIN) -> STRING\n");
     string *strValue1 = string_new("test value 1");
@@ -46,22 +53,12 @@ int main(void) {
     string *strValue3 = string_new("test value 3");
     string *strValue4 = string_new("test value 4");
     string *strValue5 = string_new("test value 5");
-    
     printf("BEFORE: %s, %s, %s, %s, %s\n", string_get(strValue1), string_get(strValue2), string_get(strValue3), string_get(strValue4), string_get(strValue5));
     string_free(strValue1);
     string_free(strValue2);
     string_free(strValue3);
     string_free(strValue4);
     string_free(strValue5);
-
-    string_free(iter);
-    string_free(format_buf);
-    string_free(str_to_split);
-    string_free(delimeter_to_use);
-    string_free(one);
-    string_free(two);
-
-    vector_free(list_of_tokens);
 
     return 0;
 }
