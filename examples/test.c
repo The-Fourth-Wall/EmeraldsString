@@ -1,16 +1,19 @@
 #include "../export/String.h"
 #include "../libs/Vector/export/Vector.h"
 
-void print_strings(string *element) {
+void *print_strings(string *element) {
     printf("%s\n", string_get(element));
+    return element;
 }
 
-void free_strings(string *element) {
+void *free_strings(string *element) {
     string_free(element);
+    return element;
 }
 
-void print_chars(char c) {
+char print_chars(char c) {
     printf("char: `%c`\n", c);
+    return c;
 }
 
 static void string_interpolation_test(void) {
@@ -43,10 +46,10 @@ static void string_split_test(void) {
     string *str_to_split = string_new("cut me in pieces");
 	string *delimeter_to_use = string_new(" ");
 	vector *list_of_tokens = string_split(str_to_split, delimeter_to_use);
-	vector_map(list_of_tokens, (vector_lambda)print_strings);
+	list_of_tokens = vector_map(list_of_tokens, (vector_lambda)print_strings);
     printf("ORIGINAL: %s\n", string_get(str_to_split));
     printf("\n");
-    vector_map(list_of_tokens, (vector_lambda)free_strings);
+    list_of_tokens = vector_map(list_of_tokens, (vector_lambda)free_strings);
     string_free(str_to_split);
     string_free(delimeter_to_use);
     vector_free(list_of_tokens);
