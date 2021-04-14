@@ -10,7 +10,6 @@ void print_chars(char c) {
 }
 
 int main(void) {
-    char *format_buf_p = NULL;
     printf("TESTING STRING INTERPOLATION\n");
     char *str = "Hello World";
     char *num = "42";
@@ -29,8 +28,7 @@ int main(void) {
     printf("TESTING STRING ADD FORMAT\n");
     string *format_buf = string_new("");
     string_addf(format_buf, "%d plus %d is %d, %s, (%g - %g = %g)", 1, 1, 1+1, "This is nice", 5.3, 1.1, 5.3-1.1);
-    printf("%s\n", (format_buf_p = string_get(format_buf)));
-    free(format_buf_p);
+    printf("%s\n", string_get(format_buf));
 	
 	vector *list_of_tokens = string_split(str_to_split, delimeter_to_use);
 	vector_map(list_of_tokens, (vector_lambda)print_strings);
@@ -54,14 +52,15 @@ int main(void) {
     string_free(strValue3);
     string_free(strValue4);
     string_free(strValue5);
-    printf("AFTER:  %p, %p, %p, %p, %p\n\n", (void*)string_get(strValue1), (void*)string_get(strValue2), (void*)string_get(strValue3), (void*)string_get(strValue4), (void*)string_get(strValue5));
 
     string_free(iter);
+    string_free(format_buf);
     string_free(str_to_split);
     string_free(delimeter_to_use);
     string_free(one);
     string_free(two);
 
     vector_free(list_of_tokens);
+
     return 0;
 }
