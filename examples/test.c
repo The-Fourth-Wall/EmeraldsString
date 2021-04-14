@@ -21,19 +21,20 @@ int main(void) {
     printf("Iteration of `o b l i v i o u s`\n");
     string_iterate(iter, (string_lambda)print_chars);
     printf("\n");
-    printf("TESTING STRING SPLIT\n");
-    string *str_to_split = string_new("cut me in pieces");
-	string *delimeter_to_use = string_new(" ");
 
     printf("TESTING STRING ADD FORMAT\n");
     string *format_buf = string_new("");
     string_addf(format_buf, "%d plus %d is %d, %s, (%g - %g = %g)", 1, 1, 1+1, "This is nice", 5.3, 1.1, 5.3-1.1);
-    printf("%s\n", string_get(format_buf));
+    printf("%s\n\n", string_get(format_buf));
 	
+    printf("TESTING STRING SPLIT\n");
+    string *str_to_split = string_new("cut me in pieces");
+	string *delimeter_to_use = string_new(" ");
 	vector *list_of_tokens = string_split(str_to_split, delimeter_to_use);
 	vector_map(list_of_tokens, (vector_lambda)print_strings);
     printf("ORIGINAL: %s\n", string_get(str_to_split));
     printf("\n");
+
     printf("TESTING STRING EQUALITY\n");
     string *one = string_new("test");
     string *two = string_new("test");
