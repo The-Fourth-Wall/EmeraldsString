@@ -182,6 +182,8 @@ char *string_identifier(string *sb) {
 }
 
 void string_free(string *sb) {
-    free(sb->str);
-    free(sb);
+    if(sb != NULL && sb->str != NULL)
+        free(sb->str);
+    if(sb != NULL)
+        free(sb);
 }
