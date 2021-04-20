@@ -29,6 +29,7 @@ int main(void) {
 
 ## Development
 
+* Write an optimized version of split using strtok
 * Write usage docs
 * Write tests
 

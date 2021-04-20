@@ -5,6 +5,7 @@ vector *string_split(string *str, string *delimeter) {
 	vector *str_tokens = vector_new();
 	string *token_str = string_new("");
 
+	/* TODO -> IMPROVE SPEED */
 	/* Iterate through the chars constructing a string and
 		reseting the value once we find the delimeter */
 	for(i = 0; (i <= string_length(str)
