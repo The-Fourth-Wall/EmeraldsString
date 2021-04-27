@@ -53,7 +53,7 @@ void string_add_str(string *sb, const char *str) {
 
     len = strlen(str);
 
-    if(sb->length <= 0.8 * sb->alloced)
+    if(sb->length >= 0.8 * sb->alloced)
         string_ensure_space(sb, sb->alloced * string_GOLDEN_MEAN);
 
     /* Copy the value into memory */
@@ -67,7 +67,7 @@ void string_add_str(string *sb, const char *str) {
 void string_add_char(string *sb, char c) {
     if(sb == NULL) return;
 
-    if(sb->length <= 0.8 * sb->alloced)
+    if(sb->length >= 0.8 * sb->alloced)
         string_ensure_space(sb, sb->alloced * string_GOLDEN_MEAN);
 
     sb->str[sb->length] = c;
