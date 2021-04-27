@@ -1,6 +1,6 @@
 #include "headers/string_base.h"
 
-#define GOLDEN_MEAN 1.618
+#define string_GOLDEN_MEAN 1.618
 
 static void string_ensure_space(string *sb, size_t capacity) {
     char *new_str = NULL;
@@ -53,7 +53,7 @@ void string_add_str(string *sb, const char *str) {
     len = strlen(str);
     
     if(sb->alloced >= sb->length)
-        string_ensure_space(sb, sb->alloced * GOLDEN_MEAN);
+        string_ensure_space(sb, sb->alloced * string_GOLDEN_MEAN);
 
     /* Copy the value into memory */
     memmove(sb->str+sb->length, str, len);
@@ -67,7 +67,7 @@ void string_add_char(string *sb, char c) {
     if(sb == NULL) return;
 
     if(sb->alloced >= sb->length)
-        string_ensure_space(sb, sb->alloced * GOLDEN_MEAN);
+        string_ensure_space(sb, sb->alloced * string_GOLDEN_MEAN);
 
     sb->str[sb->length] = c;
     sb->length++;
