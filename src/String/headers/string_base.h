@@ -19,9 +19,9 @@ static const size_t string_init_capacity = 32;
  * @param length -> The total length of the string
  **/
 typedef struct string {
-    char *str;
-    size_t alloced;
-    size_t length;
+  char *str;
+  size_t alloced;
+  size_t length;
 } string;
 
 /**

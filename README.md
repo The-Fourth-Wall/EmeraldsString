@@ -4,7 +4,7 @@ A string builder implemented using memmove for crafting.
 
 # Installation
 
-* Install the library
+- Install the library
 
 `em list`
 
@@ -14,24 +14,25 @@ A string builder implemented using memmove for crafting.
 
 ## Usage
 
-* Include in a file
+- Include in a file
 
 `touch test.c`
+
 ```c
 #include "export/String.h"
 int main(void) {
 }
 ```
 
-* Compile
+- Compile
 
 `clang test.c export/*.*o $(find ../libs -name "*.*o" | xargs ls -d)`
 
 ## Development
 
-* Write an optimized version of split using strtok
-* Write usage docs
-* Write tests
+- Write an optimized version of split using strtok
+- Write usage docs
+- Write tests
 
 ## Contributing
 

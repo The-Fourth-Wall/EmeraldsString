@@ -12,7 +12,7 @@
 /* The param void* can have more than 1 argument stored as a list of some sort */
 /* Since this is completely generic we can't check for validity of arguments */
 /* The validity of the function is dependent on the callee */
-typedef char (*string_lambda)();
+typedef char (*string_lambda)(char);
 
 /**
  * @func: string_iterate
