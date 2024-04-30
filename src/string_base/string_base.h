@@ -1,12 +1,7 @@
 #ifndef __STRING_BASE_H_
 #define __STRING_BASE_H_
 
-#include <stdio.h>  /* printf, snprintf */
 #include <stdlib.h> /* malloc, calloc, realloc, free */
-#include <string.h> /* strlen, strcmp, memmove */
-#include <stdarg.h> /* va_start, va_end, va_arg */
-
-#include "../../../libs/Bool/export/Bool.h"
 
 /** The initial minimum size of a string **/
 static const size_t string_init_capacity = 32;
@@ -26,9 +21,11 @@ typedef struct string {
 
 /**
  * @func: string_ensure_space
- * @desc: Ensure there is enough space for data being added plus a NULL terminator
+ * @desc: Ensure there is enough space for data being added plus a NULL
+ *terminator
  * @param sb -> The string builder to use
- * @param add_len -> he length that needs to be added *not* including a NULL terminator
+ * @param add_len -> he length that needs to be added *not* including a NULL
+ *terminator
  **/
 static void string_ensure_space(string *sb, size_t add_len);
 
@@ -63,7 +60,7 @@ void string_add_str(string *sb, const char *str);
  * @func: string_add_char
  * @desc: Add a character to the builder
  * @param sb -> The string builder to use
- * @param c -> The character to add 
+ * @param c -> The character to add
  **/
 void string_add_char(string *sb, char c);
 
@@ -104,7 +101,8 @@ char string_get_char_at_index(string *sb, size_t index);
  * @func: string_shorten
  * @desc: Remove data from the end of the builder
  * @param sb -> The string builder to use
- * @param len -> The new length of the string, anything after this length is removed
+ * @param len -> The new length of the string, anything after this length is
+ *removed
  **/
 void string_shorten(string *sb, size_t len);
 

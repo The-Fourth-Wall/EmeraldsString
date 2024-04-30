@@ -1,5 +1,4 @@
-#include "../export/String.h"
-#include "../libs/Vector/export/Vector.h"
+#include "../export/String.h" /* IWYU pragma: keep */
 
 void *print_strings(string *element) {
   printf("%s\n", string_get(element));
@@ -20,7 +19,14 @@ static void string_interpolation_test(void) {
   printf("TESTING STRING INTERPOLATION\n");
   char *str = "Hello World";
   char *num = "42";
-  puts("Num: `", num, "` should be `42` and String: `", str, "` should be `Hello World`", "\n");
+  puts(
+    "Num: `",
+    num,
+    "` should be `42` and String: `",
+    str,
+    "` should be `Hello World`",
+    "\n"
+  );
   puts("My num is: ", num, " and my string is: ", str, "\n");
 }
 
@@ -36,17 +42,27 @@ static void string_iteration_test(void) {
 static void add_format_test(void) {
   printf("TESTING STRING ADD FORMAT\n");
   string *format_buf = string_new("");
-  string_addf(format_buf, "%d plus %d is %d, %s, (%g - %g = %g)", 1, 1, 1+1, "This is nice", 5.3, 1.1, 5.3-1.1);
+  string_addf(
+    format_buf,
+    "%d plus %d is %d, %s, (%g - %g = %g)",
+    1,
+    1,
+    1 + 1,
+    "This is nice",
+    5.3,
+    1.1,
+    5.3 - 1.1
+  );
   printf("%s\n\n", string_get(format_buf));
   string_free(format_buf);
 }
 
 static void string_split_test(void) {
   printf("TESTING STRING SPLIT\n");
-  string *str_to_split = string_new("cut me in pieces");
-	string *delimeter_to_use = string_new(" ");
-	vector *list_of_tokens = string_split(str_to_split, delimeter_to_use);
-	list_of_tokens = vector_map(list_of_tokens, (vector_lambda1)print_strings);
+  string *str_to_split     = string_new("cut me in pieces");
+  string *delimeter_to_use = string_new(" ");
+  vector *list_of_tokens   = string_split(str_to_split, delimeter_to_use);
+  list_of_tokens = vector_map(list_of_tokens, (vector_lambda1)print_strings);
   printf("ORIGINAL: %s\n", string_get(str_to_split));
   printf("\n");
   list_of_tokens = vector_map(list_of_tokens, (vector_lambda1)free_strings);
@@ -59,7 +75,9 @@ static void string_equality_test(void) {
   printf("TESTING STRING EQUALITY\n");
   string *one = string_new("test");
   string *two = string_new("test");
-  if(string_equals(one, two)) printf("strings `one(\"test\")` and `two(\"test\")` are equal\n\n");
+  if(string_equals(one, two)) {
+    printf("strings `one(\"test\")` and `two(\"test\")` are equal\n\n");
+  }
   string_free(one);
   string_free(two);
 }
@@ -71,7 +89,14 @@ static void string_litterbin_test(void) {
   string *strValue3 = string_new("test value 3");
   string *strValue4 = string_new("test value 4");
   string *strValue5 = string_new("test value 5");
-  printf("BEFORE: %s, %s, %s, %s, %s\n", string_get(strValue1), string_get(strValue2), string_get(strValue3), string_get(strValue4), string_get(strValue5));
+  printf(
+    "BEFORE: %s, %s, %s, %s, %s\n",
+    string_get(strValue1),
+    string_get(strValue2),
+    string_get(strValue3),
+    string_get(strValue4),
+    string_get(strValue5)
+  );
   string_free(strValue1);
   string_free(strValue2);
   string_free(strValue3);

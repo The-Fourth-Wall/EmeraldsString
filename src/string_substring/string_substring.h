@@ -1,12 +1,13 @@
 #ifndef __STRING_SUBSTRING_H_
 #define __STRING_SUBSTRING_H_
 
-#include "string_base.h"
-#include "string_dup.h"
+#include "../string_base/string_base.h"
+#include "../string_dup/string_dup.h"
 
 /**
  * @func: string_substring
- * @desc: Return a substring of our current string without modifying the original
+ * @desc: Return a substring of our current string without modifying the
+ *original
  * @param sb -> The string builder we are using
  * @param from -> The point where we start our substring
  * @param to -> The point where we end our substring

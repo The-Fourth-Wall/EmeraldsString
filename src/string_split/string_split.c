@@ -1,11 +1,13 @@
-#include "headers/string_split.h"
-#include "headers/string_dup.h"
+#include "string_split.h"
+
+#include "../string_dup/string_dup.h"
+
 #include <string.h> /* strtok */
 
 vector *string_split(string *str, string *delimeter) {
   vector *str_tokens = vector_new();
-  string *dup = string_dup(str);
-  char *token_ptr = string_get(dup);
+  string *dup        = string_dup(str);
+  char *token_ptr    = string_get(dup);
 
   /* TODO -> IMPROVE SPEED */
   /* Iterate through the chars constructing a string and

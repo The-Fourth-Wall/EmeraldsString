@@ -1,7 +1,7 @@
 #ifndef __STRING_DUP_H_
 #define __STRING_DUP_H_
 
-#include "string_base.h"
+#include "../string_base/string_base.h"
 
 /**
  * @func: string_dup
