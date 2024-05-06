@@ -1,7 +1,7 @@
-#ifndef __STANDARD_IO_H_
-#define __STANDARD_IO_H_
+#ifndef __EMERALDS_STANDARD_IO_H_
+#define __EMERALDS_STANDARD_IO_H_
 
-#include "../libs/Bool/export/Bool.h"
+#include "../libs/EmeraldsBool/export/EmeraldsBool.h"
 
 #include <stdio.h>
 

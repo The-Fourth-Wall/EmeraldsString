@@ -1,7 +1,7 @@
 #include "string_dup.h"
 
-string *string_dup(string *sb) {
-  string *dup = NULL;
+EmeraldsString *string_dup(EmeraldsString *sb) {
+  EmeraldsString *dup = NULL;
 
   if(sb == NULL) {
     return NULL;

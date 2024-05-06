@@ -4,10 +4,10 @@
 
 #include <string.h> /* strtok */
 
-vector *string_split(string *str, string *delimeter) {
-  vector *str_tokens = vector_new();
-  string *dup        = string_dup(str);
-  char *token_ptr    = string_get(dup);
+EmeraldsVector *string_split(EmeraldsString *str, EmeraldsString *delimeter) {
+  EmeraldsVector *str_tokens = vector_new();
+  EmeraldsString *dup        = string_dup(str);
+  char *token_ptr            = string_get(dup);
 
   /* TODO -> IMPROVE SPEED */
   /* Iterate through the chars constructing a string and

@@ -1,4 +1,4 @@
-# String
+# EmeraldsString
 
 A string builder implemented using memmove for crafting.
 
@@ -14,29 +14,16 @@ A string builder implemented using memmove for crafting.
 
 ## Usage
 
-- Include in a file
-
-`touch test.c`
-
 ```c
-#include "export/String.h"
+#include "EmeraldsString.h"
+
 int main(void) {
 }
 ```
 
-- Compile
-
-`clang test.c export/*.*o $(find ../libs -name "*.*o" | xargs ls -d)`
-
-## Development
-
-- Write an optimized version of split using strtok
-- Write usage docs
-- Write tests
-
 ## Contributing
 
-1. Fork it (<https://github.com/EmeraldsFramework/String/fork>)
+1. Fork it (<https://github.com/Oblivious-Oblivious/EmeraldsString/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -44,4 +31,4 @@ int main(void) {
 
 ## Contributors
 
-- [Oblivious](https://github.com/Oblivious-Oblivious) - creator and maintainer
+- [oblivious](https://github.com/Oblivious-Oblivious) - creator and maintainer

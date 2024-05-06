@@ -6,7 +6,7 @@
 
 #define string_GOLDEN_MEAN 1.618
 
-static void string_ensure_space(string *sb, size_t capacity) {
+static void string_ensure_space(EmeraldsString *sb, size_t capacity) {
   char *new_str = NULL;
   if(sb == NULL || capacity == 0) {
     return;
@@ -22,11 +22,11 @@ static void string_ensure_space(string *sb, size_t capacity) {
   }
 }
 
-string *string_new(char *initial_string) {
-  string *sb = (string *)calloc(1, sizeof(*sb));
-  sb->str    = (char *)malloc(string_init_capacity);
+EmeraldsString *string_new(char *initial_string) {
+  EmeraldsString *sb = (EmeraldsString *)calloc(1, sizeof(*sb));
+  sb->str            = (char *)malloc(string_init_capacity);
 
-  /* NULL terminate the string */
+  /* NULL terminate the EmeraldsString */
   *sb->str = '\0';
 
   sb->alloced = string_init_capacity;
@@ -36,7 +36,7 @@ string *string_new(char *initial_string) {
   return sb;
 }
 
-void string_addf(string *sb, const char *f, ...) {
+void string_addf(EmeraldsString *sb, const char *f, ...) {
 #define BIG_NUMBA 16384 /* TODO -> BOUNDS CHECKS */
   signed int result = 0;
   char buf[BIG_NUMBA];
@@ -54,7 +54,7 @@ void string_addf(string *sb, const char *f, ...) {
   string_add_str(sb, buf);
 }
 
-void string_add_str(string *sb, const char *str) {
+void string_add_str(EmeraldsString *sb, const char *str) {
   size_t len;
 
   if(sb == NULL || str == NULL || *str == '\0') {
@@ -75,7 +75,7 @@ void string_add_str(string *sb, const char *str) {
   sb->str[sb->length] = '\0';
 }
 
-void string_add_char(string *sb, char c) {
+void string_add_char(EmeraldsString *sb, char c) {
   if(sb == NULL) {
     return;
   }
@@ -89,7 +89,7 @@ void string_add_char(string *sb, char c) {
   sb->str[sb->length] = '\0';
 }
 
-void string_add_int(string *sb, int val) {
+void string_add_int(EmeraldsString *sb, int val) {
   char str[32];
 
   if(sb == NULL) {
@@ -100,7 +100,7 @@ void string_add_int(string *sb, int val) {
   string_add_str(sb, str);
 }
 
-void string_add_double_precision(string *sb, double val) {
+void string_add_double_precision(EmeraldsString *sb, double val) {
   char str[64];
 
   if(sb == NULL) {
@@ -112,21 +112,21 @@ void string_add_double_precision(string *sb, double val) {
   string_add_str(sb, str);
 }
 
-char *string_get(string *sb) {
+char *string_get(EmeraldsString *sb) {
   if(sb == NULL) {
     return NULL;
   }
   return sb->str;
 }
 
-char string_get_char_at_index(string *sb, size_t index) {
+char string_get_char_at_index(EmeraldsString *sb, size_t index) {
   if(sb == NULL) {
     return '\0';
   }
   return sb->str[index];
 }
 
-void string_shorten(string *sb, size_t len) {
+void string_shorten(EmeraldsString *sb, size_t len) {
   if(sb == NULL || len >= sb->length) {
     return;
   }
@@ -137,26 +137,26 @@ void string_shorten(string *sb, size_t len) {
   sb->str[sb->length] = '\0';
 }
 
-void string_delete(string *sb) {
+void string_delete(EmeraldsString *sb) {
   if(sb == NULL) {
     return;
   }
 
-  /* Call shorten with 0, clearing out the string */
+  /* Call shorten with 0, clearing out the EmeraldsString */
   string_shorten(sb, 0);
 
   /* TODO -> Prob wrong idea */
   /*string_free(sb);*/
 }
 
-void string_skip(string *sb, size_t len) {
+void string_skip(EmeraldsString *sb, size_t len) {
   if(sb == NULL || len == 0) {
     return;
   }
 
   if(len >= sb->length) {
     /* If we choose to drop more bytes than the
-        string has simply clear the string */
+        string has simply clear the EmeraldsString */
     string_delete(sb);
     return;
   }
@@ -167,23 +167,23 @@ void string_skip(string *sb, size_t len) {
   memmove(sb->str, sb->str + len, sb->length + 1);
 }
 
-size_t string_length(string *sb) {
+size_t string_length(EmeraldsString *sb) {
   if(sb == NULL) {
     return 0;
   }
   return sb->length;
 }
 
-unsigned char string_equals(string *sb, string *other) {
+unsigned char string_equals(EmeraldsString *sb, EmeraldsString *other) {
   return strcmp(string_get(sb), string_get(other)) == 0;
 }
 
-char *string_identifier(string *sb) {
+char *string_identifier(EmeraldsString *sb) {
   unsigned char add_underscore = 0;
   char buf[32];
   size_t i;
-  string *output    = NULL;
-  string *ret_value = NULL;
+  EmeraldsString *output    = NULL;
+  EmeraldsString *ret_value = NULL;
 
   if(sb == NULL) {
     return NULL;
@@ -194,7 +194,8 @@ char *string_identifier(string *sb) {
   for(i = 0; i < string_length(sb); i++) {
     char c = string_get(sb)[i];
 
-    if((c > 47 && c < 58) || (c > 64 && c < 91) || (c > 96 && c != 95 && c < 123)) {
+    if((c > 47 && c < 58) || (c > 64 && c < 91) ||
+       (c > 96 && c != 95 && c < 123)) {
       string_add_char(output, c);
     } else if(c == 32) {
       string_add_char(output, '_');
@@ -217,7 +218,7 @@ char *string_identifier(string *sb) {
   return string_get(ret_value);
 }
 
-void string_free(string *sb) {
+void string_free(EmeraldsString *sb) {
   if(sb != NULL && sb->str != NULL) {
     free(sb->str);
   }

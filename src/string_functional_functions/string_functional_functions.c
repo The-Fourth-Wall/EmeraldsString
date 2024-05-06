@@ -1,6 +1,6 @@
 #include "string_functional_functions.h"
 
-void string_iterate(string *sb, string_lambda apply) {
+void string_iterate(EmeraldsString *sb, EmeraldsStringLambda apply) {
   char *sb_str = NULL;
   size_t i;
 
@@ -15,9 +15,9 @@ void string_iterate(string *sb, string_lambda apply) {
   }
 }
 
-string *string_map(string *sb, string_lambda modifier) {
-  char *sb_str   = NULL;
-  string *sb_dup = NULL;
+EmeraldsString *string_map(EmeraldsString *sb, EmeraldsStringLambda modifier) {
+  char *sb_str           = NULL;
+  EmeraldsString *sb_dup = NULL;
   size_t i;
 
   if(sb == NULL || modifier == NULL) {
@@ -34,9 +34,9 @@ string *string_map(string *sb, string_lambda modifier) {
   return sb_dup;
 }
 
-string *string_filter(string *sb, string_lambda filter) {
-  char *sb_str   = NULL;
-  string *sb_dup = NULL;
+EmeraldsString *string_filter(EmeraldsString *sb, EmeraldsStringLambda filter) {
+  char *sb_str           = NULL;
+  EmeraldsString *sb_dup = NULL;
   size_t i;
 
   if(sb == NULL || filter == NULL) {

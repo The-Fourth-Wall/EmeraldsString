@@ -1,8 +1,8 @@
 #include "string_interpolation.h"
 
-void display(size_t argc, ...) {
+void string_display(size_t argc, ...) {
   size_t i;
-  string *sb = string_new("");
+  EmeraldsString *sb = string_new("");
 
   va_list vars;
   va_start(vars, argc)
