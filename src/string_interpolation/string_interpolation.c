@@ -15,5 +15,3 @@ void string_display(size_t argc, ...) {
   printf("displaying: %s\n", string_get(sb));
   string_delete(sb);
 }
-
-/* TODO -> FIX SRC FOR C89 */

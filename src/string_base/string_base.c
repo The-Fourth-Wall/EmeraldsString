@@ -22,7 +22,7 @@ static void string_ensure_space(EmeraldsString *sb, size_t capacity) {
   }
 }
 
-EmeraldsString *string_new(char *initial_string) {
+EmeraldsString *string_new(const char *initial_string) {
   EmeraldsString *sb = (EmeraldsString *)calloc(1, sizeof(*sb));
   sb->str            = (char *)malloc(string_init_capacity);
 
@@ -34,6 +34,13 @@ EmeraldsString *string_new(char *initial_string) {
 
   string_add_str(sb, initial_string);
   return sb;
+}
+
+void string_add(EmeraldsString *self, EmeraldsString *other) {
+  if(self == NULL || other == NULL) {
+    return;
+  }
+  string_add_str(self, other->str);
 }
 
 void string_addf(EmeraldsString *sb, const char *f, ...) {
@@ -167,14 +174,14 @@ void string_skip(EmeraldsString *sb, size_t len) {
   memmove(sb->str, sb->str + len, sb->length + 1);
 }
 
-size_t string_length(EmeraldsString *sb) {
+size_t string_size(EmeraldsString *sb) {
   if(sb == NULL) {
     return 0;
   }
   return sb->length;
 }
 
-unsigned char string_equals(EmeraldsString *sb, EmeraldsString *other) {
+bool string_equals(EmeraldsString *sb, EmeraldsString *other) {
   return strcmp(string_get(sb), string_get(other)) == 0;
 }
 
@@ -191,7 +198,7 @@ char *string_identifier(EmeraldsString *sb) {
 
   output = string_new("");
 
-  for(i = 0; i < string_length(sb); i++) {
+  for(i = 0; i < string_size(sb); i++) {
     char c = string_get(sb)[i];
 
     if((c > 47 && c < 58) || (c > 64 && c < 91) ||
@@ -216,6 +223,19 @@ char *string_identifier(EmeraldsString *sb) {
   string_add_str(ret_value, string_get(output));
 
   return string_get(ret_value);
+}
+
+EmeraldsString *string_remove_underscores(EmeraldsString *self) {
+  EmeraldsString *sb_dup = string_new("");
+
+  char *sb_str = string_get(self);
+  for(size_t i = 0; i < string_size(self); i++) {
+    if(sb_str[i] != '_') {
+      string_add_char(sb_dup, sb_str[i]);
+    }
+  }
+
+  return sb_dup;
 }
 
 void string_free(EmeraldsString *sb) {

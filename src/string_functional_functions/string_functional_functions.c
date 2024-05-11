@@ -10,7 +10,7 @@ void string_iterate(EmeraldsString *sb, EmeraldsStringLambda apply) {
 
   sb_str = string_get(sb);
 
-  for(i = 0; i < string_length(sb); i++) {
+  for(i = 0; i < string_size(sb); i++) {
     apply(sb_str[i]);
   }
 }
@@ -27,7 +27,7 @@ EmeraldsString *string_map(EmeraldsString *sb, EmeraldsStringLambda modifier) {
   sb_str = string_get(sb);
   sb_dup = string_new("");
 
-  for(i = 0; i < string_length(sb); i++) {
+  for(i = 0; i < string_size(sb); i++) {
     string_add_char(sb_dup, modifier(sb_str[i]));
   }
 
@@ -46,7 +46,7 @@ EmeraldsString *string_filter(EmeraldsString *sb, EmeraldsStringLambda filter) {
   sb_str = string_get(sb);
   sb_dup = string_new("");
 
-  for(i = 0; i < string_length(sb); i++) {
+  for(i = 0; i < string_size(sb); i++) {
     if(filter(sb_str[i])) {
       string_add_char(sb_dup, sb_str[i]);
     }

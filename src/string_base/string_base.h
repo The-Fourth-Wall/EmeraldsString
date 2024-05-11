@@ -1,6 +1,8 @@
 #ifndef __EMERALDS_STRING_BASE_H_
 #define __EMERALDS_STRING_BASE_H_
 
+#include "../../libs/EmeraldsBool/export/EmeraldsBool.h"
+
 #include <stdlib.h> /* malloc, calloc, realloc, free */
 
 /** The initial minimum size of an EmeraldsString **/
@@ -32,7 +34,14 @@ static void string_ensure_space(EmeraldsString *sb, size_t add_len);
  * @param initial_string -> The initial string to set
  * @return The str builder
  **/
-EmeraldsString *string_new(char *initial_string);
+EmeraldsString *string_new(const char *initial_string);
+
+/**
+ * @brief Adds a string into self
+ * @param self -> The str builder to use
+ * @param other -> The str builder to add
+ */
+void string_add(EmeraldsString *self, EmeraldsString *other);
 
 /**
  * @brief Adds a formatted string into the builder
@@ -113,7 +122,7 @@ void string_skip(EmeraldsString *sb, size_t len);
  * @param sb -> The string builder to use
  * @return The current length of the string
  **/
-size_t string_length(EmeraldsString *sb);
+size_t string_size(EmeraldsString *sb);
 
 /**
  * @brief Checks if the char pointers of the two strings passed are the same
@@ -121,7 +130,7 @@ size_t string_length(EmeraldsString *sb);
  * @param other -> The second string
  * @return A boolean signaling if the strings are equal
  **/
-unsigned char string_equals(EmeraldsString *sb, EmeraldsString *other);
+bool string_equals(EmeraldsString *sb, EmeraldsString *other);
 
 /**
  * @brief Turns a string into a valid identifier by
@@ -130,6 +139,13 @@ unsigned char string_equals(EmeraldsString *sb, EmeraldsString *other);
  * @return A valid char pointer identifier
  **/
 char *string_identifier(EmeraldsString *sb);
+
+/**
+ * @brief Removes all instances of `_` underscores
+ * @param self -> The string builder to use
+ * @return The edited string builder
+ */
+EmeraldsString *string_remove_underscores(EmeraldsString *self);
 
 /**
  * @brief Frees the memory of the string
