@@ -49,7 +49,8 @@ void string_add(EmeraldsString *self, EmeraldsString *other) {
 
 void string_addf(EmeraldsString *self, const char *f, ...) {
   signed int result = 0;
-  char buf[BIG_NUMBA];
+  /* TODO -> BOUNDS CHECKS */
+  char buf[65536];
   va_list args;
 
   va_start(args, f)
