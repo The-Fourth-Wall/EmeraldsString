@@ -7,11 +7,12 @@
 /**
  * @brief Return a substring of our current string without modifying the
  *original
- * @param sb -> The string builder we are using
+ * @param self -> The string builder we are using
  * @param from -> The point where we start our substring
  * @param to -> The point where we end our substring
  * @return A substring of a copy of the original string
  **/
-EmeraldsString *string_substring(EmeraldsString *sb, size_t from, size_t __to);
+EmeraldsString *
+string_substring(EmeraldsString *self, size_t from, size_t __to);
 
 #endif

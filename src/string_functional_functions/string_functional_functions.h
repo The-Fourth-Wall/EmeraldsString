@@ -16,26 +16,27 @@ typedef char (*EmeraldsStringLambda)(char);
 
 /**
  * @brief Iterates through the characters of the string
- * @param sb -> The string builder we want to iterate
+ * @param self -> The string builder we want to iterate
  * @param apply -> The function we apply to each character
  **/
-void string_iterate(EmeraldsString *sb, EmeraldsStringLambda apply);
+void string_iterate(EmeraldsString *self, EmeraldsStringLambda apply);
 
 /**
  * @brief Maps each character of the string according to a modifier function
- * @param sb -> The string builder to map
+ * @param self -> The string builder to map
  * @param modifier -> The EmeraldsStringLambda function to use for the
  *conversions
  * @return A new mapped string
  **/
-EmeraldsString *string_map(EmeraldsString *sb, EmeraldsStringLambda modifier);
+EmeraldsString *string_map(EmeraldsString *self, EmeraldsStringLambda modifier);
 
 /**
  * @brief Filters out characters from the string according to a function
- * @param sb -> The string builder to filter
+ * @param self -> The string builder to filter
  * @param filter -> The labmda function to use
  * @return A new filtered string
  **/
-EmeraldsString *string_filter(EmeraldsString *sb, EmeraldsStringLambda filter);
+EmeraldsString *
+string_filter(EmeraldsString *self, EmeraldsStringLambda filter);
 
 #endif

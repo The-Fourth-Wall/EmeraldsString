@@ -5,9 +5,9 @@
 
 /**
  * @brief Return a memory duplicate string
- * @param sb -> The string to duplicate
+ * @param self -> The string to duplicate
  * @return The dup string
  **/
-EmeraldsString *string_dup(EmeraldsString *sb);
+EmeraldsString *string_dup(EmeraldsString *self);
 
 #endif

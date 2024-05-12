@@ -4,36 +4,40 @@
 #include <stdio.h>  /* printf, snprintf, vsnprintf */
 #include <string.h> /* strlen, strcmp, memmove */
 
-#define string_GOLDEN_MEAN 1.618
+/** The increase rate of an EmeraldsString */
+static const double string_golden_mean = 1.618;
 
-static void string_ensure_space(EmeraldsString *sb, size_t capacity) {
+/** The initial minimum size of an EmeraldsString **/
+static const size_t string_init_capacity = 1024;
+
+static void string_ensure_space(EmeraldsString *self, size_t add_len) {
   char *new_str = NULL;
-  if(sb == NULL || capacity == 0) {
+  if(self == NULL || add_len == 0) {
     return;
   }
 
   /* Attempt to reallocate new memory in the items list */
-  new_str = (char *)realloc(sb->str, sizeof(char *) * capacity);
+  new_str = (char *)realloc(self->str, sizeof(char *) * add_len);
 
   if(new_str) {
     /* Reset the items in the new memory space */
-    sb->str     = new_str;
-    sb->alloced = capacity;
+    self->str     = new_str;
+    self->alloced = add_len;
   }
 }
 
 EmeraldsString *string_new(const char *initial_string) {
-  EmeraldsString *sb = (EmeraldsString *)calloc(1, sizeof(*sb));
-  sb->str            = (char *)malloc(string_init_capacity);
+  EmeraldsString *self = (EmeraldsString *)malloc(sizeof(EmeraldsString));
+  self->str            = (char *)malloc(sizeof(char) * string_init_capacity);
 
   /* NULL terminate the EmeraldsString */
-  *sb->str = '\0';
+  *self->str = '\0';
 
-  sb->alloced = string_init_capacity;
-  sb->length  = 0;
+  self->alloced = string_init_capacity;
+  self->size    = 0;
 
-  string_add_str(sb, initial_string);
-  return sb;
+  string_add_str(self, initial_string);
+  return self;
 }
 
 void string_add(EmeraldsString *self, EmeraldsString *other) {
@@ -43,8 +47,7 @@ void string_add(EmeraldsString *self, EmeraldsString *other) {
   string_add_str(self, other->str);
 }
 
-void string_addf(EmeraldsString *sb, const char *f, ...) {
-#define BIG_NUMBA 16384 /* TODO -> BOUNDS CHECKS */
+void string_addf(EmeraldsString *self, const char *f, ...) {
   signed int result = 0;
   char buf[BIG_NUMBA];
   va_list args;
@@ -58,148 +61,148 @@ void string_addf(EmeraldsString *sb, const char *f, ...) {
     return;
   }
 
-  string_add_str(sb, buf);
+  string_add_str(self, buf);
 }
 
-void string_add_str(EmeraldsString *sb, const char *str) {
+void string_add_str(EmeraldsString *self, const char *str) {
   size_t len;
 
-  if(sb == NULL || str == NULL || *str == '\0') {
+  if(self == NULL || str == NULL || *str == '\0') {
     return;
   }
 
   len = strlen(str);
 
-  if(sb->alloced < sb->length + len) {
-    string_ensure_space(sb, sb->alloced * string_GOLDEN_MEAN);
+  if(self->alloced < self->size + len) {
+    string_ensure_space(self, self->alloced * string_golden_mean);
   }
 
   /* Copy the value into memory */
-  memmove(sb->str + sb->length, str, len);
+  memmove(self->str + self->size, str, len);
 
   /* Reset length and NULL terminate */
-  sb->length += len;
-  sb->str[sb->length] = '\0';
+  self->size += len;
+  self->str[self->size] = '\0';
 }
 
-void string_add_char(EmeraldsString *sb, char c) {
-  if(sb == NULL) {
+void string_add_char(EmeraldsString *self, char c) {
+  if(self == NULL) {
     return;
   }
 
-  if(sb->alloced < sb->length + 1) {
-    string_ensure_space(sb, sb->alloced * string_GOLDEN_MEAN);
+  if(self->alloced < self->size + 1) {
+    string_ensure_space(self, self->alloced * string_golden_mean);
   }
 
-  sb->str[sb->length] = c;
-  sb->length++;
-  sb->str[sb->length] = '\0';
+  self->str[self->size] = c;
+  self->size++;
+  self->str[self->size] = '\0';
 }
 
-void string_add_int(EmeraldsString *sb, int val) {
+void string_add_int(EmeraldsString *self, int val) {
   char str[32];
 
-  if(sb == NULL) {
+  if(self == NULL) {
     return;
   }
 
   snprintf(str, sizeof(str), "%d", val);
-  string_add_str(sb, str);
+  string_add_str(self, str);
 }
 
-void string_add_double_precision(EmeraldsString *sb, double val) {
+void string_add_double_precision(EmeraldsString *self, double val) {
   char str[64];
 
-  if(sb == NULL) {
+  if(self == NULL) {
     return;
   }
 
   /* Use %g for minimum precision on printing floats */
   snprintf(str, sizeof(str), "%g", val);
-  string_add_str(sb, str);
+  string_add_str(self, str);
 }
 
-char *string_get(EmeraldsString *sb) {
-  if(sb == NULL) {
+char *string_get(EmeraldsString *self) {
+  if(self == NULL) {
     return NULL;
   }
-  return sb->str;
+  return self->str;
 }
 
-char string_get_char_at_index(EmeraldsString *sb, size_t index) {
-  if(sb == NULL) {
+char string_get_char_at_index(EmeraldsString *self, size_t index) {
+  if(self == NULL) {
     return '\0';
   }
-  return sb->str[index];
+  return self->str[index];
 }
 
-void string_shorten(EmeraldsString *sb, size_t len) {
-  if(sb == NULL || len >= sb->length) {
+void string_shorten(EmeraldsString *self, size_t len) {
+  if(self == NULL || len >= self->size) {
     return;
   }
 
   /* Reset the length and NULL terminate, ingoring
       all values right to the NULL from memory */
-  sb->length          = len;
-  sb->str[sb->length] = '\0';
+  self->size            = len;
+  self->str[self->size] = '\0';
 }
 
-void string_delete(EmeraldsString *sb) {
-  if(sb == NULL) {
+void string_delete(EmeraldsString *self) {
+  if(self == NULL) {
     return;
   }
 
   /* Call shorten with 0, clearing out the EmeraldsString */
-  string_shorten(sb, 0);
+  string_shorten(self, 0);
 
   /* TODO -> Prob wrong idea */
-  /*string_free(sb);*/
+  /*string_free(self);*/
 }
 
-void string_skip(EmeraldsString *sb, size_t len) {
-  if(sb == NULL || len == 0) {
+void string_skip(EmeraldsString *self, size_t len) {
+  if(self == NULL || len == 0) {
     return;
   }
 
-  if(len >= sb->length) {
+  if(len >= self->size) {
     /* If we choose to drop more bytes than the
         string has simply clear the EmeraldsString */
-    string_delete(sb);
+    string_delete(self);
     return;
   }
 
-  sb->length -= len;
+  self->size -= len;
 
   /* +1 to move the NULL. */
-  memmove(sb->str, sb->str + len, sb->length + 1);
+  memmove(self->str, self->str + len, self->size + 1);
 }
 
-size_t string_size(EmeraldsString *sb) {
-  if(sb == NULL) {
+size_t string_size(EmeraldsString *self) {
+  if(self == NULL) {
     return 0;
   }
-  return sb->length;
+  return self->size;
 }
 
-bool string_equals(EmeraldsString *sb, EmeraldsString *other) {
-  return strcmp(string_get(sb), string_get(other)) == 0;
+bool string_equals(EmeraldsString *self, EmeraldsString *other) {
+  return strcmp(string_get(self), string_get(other)) == 0;
 }
 
-char *string_identifier(EmeraldsString *sb) {
+char *string_identifier(EmeraldsString *self) {
   unsigned char add_underscore = 0;
   char buf[32];
   size_t i;
   EmeraldsString *output    = NULL;
   EmeraldsString *ret_value = NULL;
 
-  if(sb == NULL) {
+  if(self == NULL) {
     return NULL;
   }
 
   output = string_new("");
 
-  for(i = 0; i < string_size(sb); i++) {
-    char c = string_get(sb)[i];
+  for(i = 0; i < string_size(self); i++) {
+    char c = string_get(self)[i];
 
     if((c > 47 && c < 58) || (c > 64 && c < 91) ||
        (c > 96 && c != 95 && c < 123)) {
@@ -226,23 +229,23 @@ char *string_identifier(EmeraldsString *sb) {
 }
 
 EmeraldsString *string_remove_underscores(EmeraldsString *self) {
-  EmeraldsString *sb_dup = string_new("");
+  EmeraldsString *self_dup = string_new("");
 
-  char *sb_str = string_get(self);
+  char *self_str = string_get(self);
   for(size_t i = 0; i < string_size(self); i++) {
-    if(sb_str[i] != '_') {
-      string_add_char(sb_dup, sb_str[i]);
+    if(self_str[i] != '_') {
+      string_add_char(self_dup, self_str[i]);
     }
   }
 
-  return sb_dup;
+  return self_dup;
 }
 
-void string_free(EmeraldsString *sb) {
-  if(sb != NULL && sb->str != NULL) {
-    free(sb->str);
+void string_free(EmeraldsString *self) {
+  if(self != NULL && self->str != NULL) {
+    free(self->str);
   }
-  if(sb != NULL) {
-    free(sb);
+  if(self != NULL) {
+    free(self);
   }
 }

@@ -1,56 +1,58 @@
 #include "string_functional_functions.h"
 
-void string_iterate(EmeraldsString *sb, EmeraldsStringLambda apply) {
-  char *sb_str = NULL;
+void string_iterate(EmeraldsString *self, EmeraldsStringLambda apply) {
+  char *self_str = NULL;
   size_t i;
 
-  if(sb == NULL || apply == NULL) {
+  if(self == NULL || apply == NULL) {
     return;
   }
 
-  sb_str = string_get(sb);
+  self_str = string_get(self);
 
-  for(i = 0; i < string_size(sb); i++) {
-    apply(sb_str[i]);
+  for(i = 0; i < string_size(self); i++) {
+    apply(self_str[i]);
   }
 }
 
-EmeraldsString *string_map(EmeraldsString *sb, EmeraldsStringLambda modifier) {
-  char *sb_str           = NULL;
-  EmeraldsString *sb_dup = NULL;
+EmeraldsString *
+string_map(EmeraldsString *self, EmeraldsStringLambda modifier) {
+  char *self_str           = NULL;
+  EmeraldsString *self_dup = NULL;
   size_t i;
 
-  if(sb == NULL || modifier == NULL) {
+  if(self == NULL || modifier == NULL) {
     return NULL;
   }
 
-  sb_str = string_get(sb);
-  sb_dup = string_new("");
+  self_str = string_get(self);
+  self_dup = string_new("");
 
-  for(i = 0; i < string_size(sb); i++) {
-    string_add_char(sb_dup, modifier(sb_str[i]));
+  for(i = 0; i < string_size(self); i++) {
+    string_add_char(self_dup, modifier(self_str[i]));
   }
 
-  return sb_dup;
+  return self_dup;
 }
 
-EmeraldsString *string_filter(EmeraldsString *sb, EmeraldsStringLambda filter) {
-  char *sb_str           = NULL;
-  EmeraldsString *sb_dup = NULL;
+EmeraldsString *
+string_filter(EmeraldsString *self, EmeraldsStringLambda filter) {
+  char *self_str           = NULL;
+  EmeraldsString *self_dup = NULL;
   size_t i;
 
-  if(sb == NULL || filter == NULL) {
+  if(self == NULL || filter == NULL) {
     return NULL;
   }
 
-  sb_str = string_get(sb);
-  sb_dup = string_new("");
+  self_str = string_get(self);
+  self_dup = string_new("");
 
-  for(i = 0; i < string_size(sb); i++) {
-    if(filter(sb_str[i])) {
-      string_add_char(sb_dup, sb_str[i]);
+  for(i = 0; i < string_size(self); i++) {
+    if(filter(self_str[i])) {
+      string_add_char(self_dup, self_str[i]);
     }
   }
 
-  return sb_dup;
+  return self_dup;
 }

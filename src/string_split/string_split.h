@@ -6,10 +6,10 @@
 
 /**
  * @brief Splits a string to a spesific delimeter
- * @param str -> The string to split
+ * @param self -> The string to split
  * @param delimeter -> The string delimeter
  * @return A vector with the string tokens
  **/
-EmeraldsVector *string_split(EmeraldsString *str, EmeraldsString *delimeter);
+EmeraldsVector *string_split(EmeraldsString *self, EmeraldsString *delimeter);
 
 #endif
