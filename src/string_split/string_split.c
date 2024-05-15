@@ -4,8 +4,8 @@
 
 #include <string.h> /* strtok */
 
-EmeraldsVector *string_split(EmeraldsString *self, EmeraldsString *delimeter) {
-  EmeraldsVector *str_tokens = vector_new();
+EmeraldsString **string_split(EmeraldsString *self, EmeraldsString *delimeter) {
+  EmeraldsString **str_tokens = NULL;
   EmeraldsString *dup        = string_dup(self);
   char *token_ptr            = string_get(dup);
 

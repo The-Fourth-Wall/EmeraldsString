@@ -61,13 +61,11 @@ static void string_split_test(void) {
   printf("TESTING STRING SPLIT\n");
   EmeraldsString *str_to_split     = string_new("cut me in pieces");
   EmeraldsString *delimeter_to_use = string_new(" ");
-  EmeraldsVector *list_of_tokens = string_split(str_to_split, delimeter_to_use);
-  list_of_tokens =
-    vector_map(list_of_tokens, (EmeraldsVectorLambda1)print_strings);
+  EmeraldsString **list_of_tokens = string_split(str_to_split, delimeter_to_use);
+  vector_map(list_of_tokens, list_of_tokens, print_strings);
   printf("ORIGINAL: %s\n", string_get(str_to_split));
   printf("\n");
-  list_of_tokens =
-    vector_map(list_of_tokens, (EmeraldsVectorLambda1)free_strings);
+  vector_map(list_of_tokens, list_of_tokens, free_strings);
   string_free(str_to_split);
   string_free(delimeter_to_use);
   vector_free(list_of_tokens);
