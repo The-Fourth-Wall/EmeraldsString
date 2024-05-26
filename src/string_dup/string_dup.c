@@ -1,14 +1,11 @@
 #include "string_dup.h"
 
-EmeraldsString *string_dup(EmeraldsString *self) {
-  EmeraldsString *dup = NULL;
-
+char *string_dup(char *self) {
   if(self == NULL) {
     return NULL;
+  } else {
+    char *dup = string_new("");
+    string_add(dup, self);
+    return dup;
   }
-
-  dup = string_new("");
-  string_add_str(dup, string_get(self));
-
-  return dup;
 }

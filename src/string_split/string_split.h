@@ -10,6 +10,6 @@
  * @param delimeter -> The string delimeter
  * @return A vector with the string tokens
  **/
-EmeraldsString **string_split(EmeraldsString *self, EmeraldsString *delimeter);
+char **string_split(char *self, char *delimeter);
 
 #endif

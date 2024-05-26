@@ -12,7 +12,6 @@
  * @param to -> The point where we end our substring
  * @return A substring of a copy of the original string
  **/
-EmeraldsString *
-string_substring(EmeraldsString *self, size_t from, size_t __to);
+char *string_substring(char *self, size_t from_position, size_t to_position);
 
 #endif

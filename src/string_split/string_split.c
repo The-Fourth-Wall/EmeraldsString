@@ -4,18 +4,17 @@
 
 #include <string.h> /* strtok */
 
-EmeraldsString **string_split(EmeraldsString *self, EmeraldsString *delimeter) {
-  EmeraldsString **str_tokens = NULL;
-  EmeraldsString *dup        = string_dup(self);
-  char *token_ptr            = string_get(dup);
+char **string_split(char *self, char *delimeter) {
+  char **str_tokens = NULL;
+  char *dup         = string_dup(self);
 
   /* TODO -> IMPROVE SPEED */
   /* Iterate through the chars constructing a string and
     reseting the value once we find the delimeter */
-  token_ptr = strtok(string_get(dup), string_get(delimeter));
-  while(token_ptr != NULL) {
-    vector_add(str_tokens, string_new(token_ptr));
-    token_ptr = strtok(NULL, string_get(delimeter));
+  dup = strtok(dup, delimeter);
+  while(dup != NULL) {
+    vector_add(str_tokens, string_new(dup));
+    dup = strtok(NULL, delimeter);
   }
 
   return str_tokens;

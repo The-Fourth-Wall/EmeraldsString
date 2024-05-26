@@ -8,6 +8,6 @@
  * @param self -> The string to duplicate
  * @return The dup string
  **/
-EmeraldsString *string_dup(EmeraldsString *self);
+char *string_dup(char *self);
 
 #endif
