@@ -99,7 +99,7 @@ void string_skip(char *self, size_t len);
  * @param other -> The second string
  * @return A boolean signaling if the strings are equal
  **/
-#define string_equals(self, other) strcmp(self, other) == 0
+#define string_equals(self, other) (strcmp((self), (other)) == 0)
 
 /**
  * @brief Turns a string into a valid identifier by
