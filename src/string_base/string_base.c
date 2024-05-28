@@ -12,7 +12,7 @@ char *string_new(const char *initial_string) {
   return self;
 }
 
-void string_addf(char **self, const char *f, ...) {
+void _string_internal_addf(char **self, const char *f, ...) {
   signed int result = 0;
   /* TODO -> BOUNDS CHECKS */
   char buf[65536];

@@ -45,7 +45,7 @@ static void add_format_test(void) {
   printf("TESTING STRING ADD FORMAT\n");
   char *format_buf = string_new("");
   string_addf(
-    &format_buf,
+    format_buf,
     "%d plus %d is %d, %s, (%g - %g = %g)",
     1,
     1,

@@ -31,8 +31,8 @@ char *string_new(const char *initial_string);
  * @param f -> The format string to use
  * @param ... -> The rest of the arguments
  */
-// void string_addf(char *self, const char *f, ...);
-void string_addf(char **self, const char *f, ...);
+void _string_internal_addf(char **self, const char *f, ...);
+#define string_addf(self, f, ...) _string_internal_addf(&self, f, __VA_ARGS__)
 
 /**
  * @brief Add a character to the builder
