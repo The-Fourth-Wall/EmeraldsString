@@ -43,7 +43,7 @@ module(T_string_base, {
       });
     });
 
-    context("when the initial value exitsts", {
+    context("when the initial value exists", {
       it("returns the correct char* when calling `string_get`", {
         char *str = string_new("initial");
         assert_that_charptr(str equals to "initial");
@@ -99,6 +99,18 @@ module(T_string_base, {
 
         assert_that_int(vector_size(v) equals to 20);
       });
+    });
+
+    it("shortens a string by a given length", {
+      char *str = string_new("this is a test");
+      string_shorten(str, string_size(str) - 5);
+      assert_that_charptr(str equals to "this is a");
+    });
+
+    it("skips a string by a given length", {
+      char *str = string_new("this is a test");
+      string_skip(str, 5);
+      assert_that_charptr(str equals to "is a test");
     });
   });
 })

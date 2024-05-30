@@ -31,6 +31,7 @@ void _string_internal_addf(char **self, const char *f, ...) {
 void string_shorten(char *self, size_t len) {
   if(len < string_size(self)) {
     _vector_internal_get_header(self)->size = len;
+    self[string_size(self)]                 = '\0';
   }
 }
 
