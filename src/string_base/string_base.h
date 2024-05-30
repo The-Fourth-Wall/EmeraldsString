@@ -20,6 +20,7 @@ char *string_new(const char *initial_string);
 #define string_add(self, other)       \
   do {                                \
     size_t len = strlen(other);       \
+    vector_initialize(self);          \
     for(size_t i = 0; i < len; i++) { \
       vector_add(self, other[i]);     \
     }                                 \
