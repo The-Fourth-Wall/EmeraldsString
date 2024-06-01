@@ -21,10 +21,11 @@ char *string_new(const char *initial_string);
  */
 #define string_add(self, other)       \
   do {                                \
-    size_t len = strlen(other);       \
     if(self == NULL) {                \
       vector_initialize(self);        \
     }                                 \
+                                      \
+    size_t len = strlen(other);       \
     for(size_t i = 0; i < len; i++) { \
       vector_add(self, other[i]);     \
     }                                 \
