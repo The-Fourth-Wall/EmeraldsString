@@ -35,7 +35,7 @@ void string_shorten(char *self, size_t len) {
   }
 }
 
-void string_skip(char *self, size_t len) {
+void string_skip_first(char *self, size_t len) {
   if(len >= string_size(self)) {
     /* If we choose to drop more bytes than the
         string has simply clear the char */
@@ -55,7 +55,7 @@ char *string_identifier(char *self) {
   char *ret_value = NULL;
 
   if(self == NULL) {
-    return NULL;
+    return "";
   }
 
   output = string_new("");
@@ -63,8 +63,11 @@ char *string_identifier(char *self) {
   for(i = 0; i < string_size(self); i++) {
     char c = self[i];
 
-    if((c > 47 && c < 58) || (c > 64 && c < 91) ||
-       (c > 96 && c != 95 && c < 123)) {
+    if(i == 0 && c >= '0' && c <= '9') {
+      string_add_char(output, '_');
+      string_add_char(output, c);
+    } else if((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') ||
+              (c >= 'a' && c != '_' && c <= 'z')) {
       string_add_char(output, c);
     } else if(c == 32) {
       string_add_char(output, '_');

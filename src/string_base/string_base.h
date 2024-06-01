@@ -3,6 +3,7 @@
 
 #include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
 
+#include <stdio.h>  /* vsnprintf */
 #include <string.h> /* strlen */
 
 /**
@@ -47,11 +48,11 @@ void _string_internal_addf(char **self, const char *f, ...);
  * @param self -> The string to use
  * @param val -> The integer to add
  **/
-#define string_add_int(self, val)          \
-  do {                                     \
-    char str[32];                          \
-    snprintf(str, sizeof(str), "%d", val); \
-    string_add(self, str);                 \
+#define string_add_int(self, val)                                      \
+  do {                                                                 \
+    char __str_to_be_added[32];                                        \
+    snprintf(__str_to_be_added, sizeof(__str_to_be_added), "%d", val); \
+    string_add(self, __str_to_be_added);                               \
   } while(0)
 
 /**
@@ -59,11 +60,11 @@ void _string_internal_addf(char **self, const char *f, ...);
  * @param self -> The string to use
  * @param val -> The double to add
  **/
-#define string_add_double_precision(self, val) \
-  do {                                         \
-    char str[64];                              \
-    snprintf(str, sizeof(str), "%g", val);     \
-    string_add(self, str);                     \
+#define string_add_double_precision(self, val)                         \
+  do {                                                                 \
+    char __str_to_be_added[64];                                        \
+    snprintf(__str_to_be_added, sizeof(__str_to_be_added), "%g", val); \
+    string_add(self, __str_to_be_added);                               \
   } while(0)
 
 /**
@@ -75,17 +76,25 @@ void _string_internal_addf(char **self, const char *f, ...);
 void string_shorten(char *self, size_t len);
 
 /**
- * @brief Clear the builder
- * @param self -> The string to use
- **/
-#define string_delete(self) string_shorten(self, 0)
-
-/**
  * @brief Remove data from the beginning of the builder
  * @param self -> The string to use
  * @param len -> The length to remove
  **/
-void string_skip(char *self, size_t len);
+void string_skip_first(char *self, size_t len);
+
+/**
+ * @brief Ignores the last `len` characters of the string
+ * @param self -> The string to use
+ * @param len -> The length to ignore
+ **/
+#define string_ignore_last(self, len) \
+  string_shorten(self, string_size(self) - len)
+
+/**
+ * @brief Clear the builder
+ * @param self -> The string to use
+ **/
+#define string_delete(self) string_shorten(self, 0)
 
 /**
  * @brief The length of the string contained in the builder
