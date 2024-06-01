@@ -4,6 +4,8 @@
 #include "../string_base/string_base.h"
 #include "../string_dup/string_dup.h"
 
+#include <stddef.h> /* ptrdiff_t */
+
 /**
  * @brief Return a substring of our current string without modifying the
  *original
@@ -12,6 +14,7 @@
  * @param to -> The point where we end our substring
  * @return A substring of a copy of the original string
  **/
-char *string_substring(char *self, size_t from_position, size_t to_position);
+char *
+string_substring(char *self, ptrdiff_t from_position, ptrdiff_t to_position);
 
 #endif

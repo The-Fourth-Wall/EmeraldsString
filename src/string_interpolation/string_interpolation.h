@@ -291,8 +291,9 @@
 #define string_puts(...) \
   string_display(EMERALDS_PP_NARG(__VA_ARGS__), __VA_ARGS__)
 
+// TODO - Actual conversion to a string
 /**
- * @brief Used for string interpolation, TODO -> ACTUAL CONVERTING
+ * @brief Used for string interpolation
  * @param argc -> The number of the arguments provided by the macros
  * @param __VA_ARGS__ -> The rest of the arguments to iterate through
  **/

@@ -116,16 +116,52 @@ module(T_string_base, {
         assert_that_charptr(str equals to "this is a");
       });
 
+      it("shortens a string to a length shorter than the string size", {
+        char *str = string_new("this is a test");
+        string_shorten(str, string_size(str) - 42);
+        assert_that_charptr(str equals to "");
+      });
+
+      it("shortens a string to a length greater than the string size", {
+        char *str = string_new("this is a test");
+        string_shorten(str, string_size(str) + 42);
+        assert_that_charptr(str equals to "this is a test");
+      });
+
       it("skips first string characters by a given length", {
         char *str = string_new("this is a test");
         string_skip_first(str, 5);
         assert_that_charptr(str equals to "is a test");
       });
 
+      it("skips first string characters by a length greater than the string size", {
+        char *str = string_new("this is a test");
+        string_skip_first(str, 42);
+        assert_that_charptr(str equals to "");
+      });
+
+      it("skips first string characters by a length shorter than the string size", {
+        char *str = string_new("this is a test");
+        string_skip_first(str, -42);
+        assert_that_charptr(str equals to "this is a test");
+      });
+
       it("ignores last string characters by a given length", {
         char *str = string_new("this is a test");
         string_ignore_last(str, 5);
         assert_that_charptr(str equals to "this is a");
+      });
+
+      it("ignores last string characters by a length greater than the string size", {
+        char *str = string_new("this is a test");
+        string_ignore_last(str, 42);
+        assert_that_charptr(str equals to "");
+      });
+
+      it("ignores last string characters by a length shorter than the string size", {
+        char *str = string_new("this is a test");
+        string_ignore_last(str, -42);
+        assert_that_charptr(str equals to "this is a test");
       });
     });
 

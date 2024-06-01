@@ -3,6 +3,7 @@
 
 #include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
 
+#include <stddef.h> /* ptrdiff_t */
 #include <stdio.h>  /* vsnprintf */
 #include <string.h> /* strlen */
 
@@ -21,7 +22,9 @@ char *string_new(const char *initial_string);
 #define string_add(self, other)       \
   do {                                \
     size_t len = strlen(other);       \
-    vector_initialize(self);          \
+    if(self == NULL) {                \
+      vector_initialize(self);        \
+    }                                 \
     for(size_t i = 0; i < len; i++) { \
       vector_add(self, other[i]);     \
     }                                 \
@@ -73,14 +76,14 @@ void _string_internal_addf(char **self, const char *f, ...);
  * @param len -> The new length of the string, anything after this length is
  *removed
  **/
-void string_shorten(char *self, size_t len);
+void string_shorten(char *self, ptrdiff_t len);
 
 /**
  * @brief Remove data from the beginning of the builder
  * @param self -> The string to use
  * @param len -> The length to remove
  **/
-void string_skip_first(char *self, size_t len);
+void string_skip_first(char *self, ptrdiff_t len);
 
 /**
  * @brief Ignores the last `len` characters of the string

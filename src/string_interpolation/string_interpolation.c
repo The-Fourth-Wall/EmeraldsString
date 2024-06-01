@@ -10,7 +10,9 @@ void string_display(size_t argc, ...) {
     ;
     for(size_t i = 0; i < argc; i++) {
       char *v = va_arg(vars, char *);
-      string_add(self, v);
+      if(v != NULL) {
+        string_add(self, v);
+      }
     }
   va_end(vars);
 

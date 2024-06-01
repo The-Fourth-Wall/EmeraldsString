@@ -7,6 +7,10 @@ void string_iterate(char *self, EmeraldsStringLambda apply) {
 }
 
 char *string_map(char *self, EmeraldsStringLambda modifier) {
+  if(self == NULL) {
+    return NULL;
+  }
+
   char *self_dup = string_new("");
 
   for(size_t i = 0; i < string_size(self); i++) {
@@ -17,6 +21,10 @@ char *string_map(char *self, EmeraldsStringLambda modifier) {
 }
 
 char *string_filter(char *self, EmeraldsStringLambda filter) {
+  if(self == NULL) {
+    return NULL;
+  }
+
   char *self_dup = string_new("");
 
   for(size_t i = 0; i < string_size(self); i++) {
