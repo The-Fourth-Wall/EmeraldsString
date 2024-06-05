@@ -19,16 +19,12 @@ char *string_new(const char *initial_string);
  * @param self -> The string to use
  * @param other -> The string to add
  */
-#define string_add(self, other)       \
-  do {                                \
-    if(self == NULL) {                \
-      vector_initialize(self);        \
-    }                                 \
-                                      \
-    size_t len = strlen(other);       \
-    for(size_t i = 0; i < len; i++) { \
-      vector_add(self, other[i]);     \
-    }                                 \
+#define string_add(self, other)               \
+  do {                                        \
+    if(self == NULL) {                        \
+      vector_initialize(self);                \
+    }                                         \
+    vector_add_n(self, other, strlen(other)); \
   } while(0)
 
 /**
