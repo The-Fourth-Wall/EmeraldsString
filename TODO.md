@@ -1,3 +1,2 @@
-* Write an optimized version of split using strtok
+* Remove libc and hand craft the string structure
 * Write usage docs
-* Write tests

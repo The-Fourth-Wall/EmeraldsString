@@ -134,13 +134,13 @@ module(T_string_base, {
         assert_that_charptr(str equals to "is a test");
       });
 
-      it("skips first string characters by a length greater than the string size", {
+      it("skips first string characters by a length greater than string size", {
         char *str = string_new("this is a test");
         string_skip_first(str, 42);
         assert_that_charptr(str equals to "");
       });
 
-      it("skips first string characters by a length shorter than the string size", {
+      it("skips first string characters by a length shorter than string size", {
         char *str = string_new("this is a test");
         string_skip_first(str, -42);
         assert_that_charptr(str equals to "this is a test");
@@ -152,13 +152,13 @@ module(T_string_base, {
         assert_that_charptr(str equals to "this is a");
       });
 
-      it("ignores last string characters by a length greater than the string size", {
+      it("ignores last string chars by a length greater than string size", {
         char *str = string_new("this is a test");
         string_ignore_last(str, 42);
         assert_that_charptr(str equals to "");
       });
 
-      it("ignores last string characters by a length shorter than the string size", {
+      it("ignores last string chars by a length shorter than string size", {
         char *str = string_new("this is a test");
         string_ignore_last(str, -42);
         assert_that_charptr(str equals to "this is a test");
@@ -292,7 +292,7 @@ module(T_string_base, {
       });
 
       it("adds a string in a vector of strings in an extenral function", {
-        char **v = vector_string_new("one");
+        char **v = vector_new("one");
         assert_that(vector_size(v) is 1);
         assert_that_charptr(v[0] equals to "one");
         char *two   = string_new("two");

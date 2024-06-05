@@ -1,7 +1,6 @@
 #ifndef __EMERALDS_STRING_SPLIT_H_
 #define __EMERALDS_STRING_SPLIT_H_
 
-#include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
 #include "../string_base/string_base.h"
 
 /**

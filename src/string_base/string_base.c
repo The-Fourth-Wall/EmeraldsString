@@ -1,7 +1,5 @@
 #include "string_base.h"
 
-#include "../../libs/EmeraldsVector/export/EmeraldsVector.h" /* IWYU pragma: keep */
-
 #include <stdarg.h> /* va_start, va_end, va_arg */
 #include <stdio.h>  /* printf, snprintf, vsnprintf */
 #include <string.h> /* strlen, strcmp, memmove */
@@ -34,9 +32,9 @@ void string_shorten(char *self, ptrdiff_t len) {
   }
 
   if(len < 0) {
-    _vector_internal_get_header(self)->size = 0;
+    _vector_get_header(self)->size = 0;
   } else if(len < (ptrdiff_t)string_size(self)) {
-    _vector_internal_get_header(self)->size = len;
+    _vector_get_header(self)->size = len;
   }
   self[string_size(self)] = '\0';
 }
@@ -51,7 +49,7 @@ void string_skip_first(char *self, ptrdiff_t len) {
         string has simply clear the char */
     string_delete(self);
   } else if(len > 0) {
-    _vector_internal_get_header(self)->size -= len;
+    _vector_get_header(self)->size -= len;
     /* +1 to move the NULL. */
     memmove(self, self + len, string_size(self) + 1);
   }
