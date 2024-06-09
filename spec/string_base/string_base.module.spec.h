@@ -56,6 +56,21 @@ module(T_string_base, {
         assert_that_charptr(str3 equals to "test3");
       });
 
+      it("adds an initialized string to a another string", {
+        char *str        = NULL;
+        char *str2       = string_new("test2");
+        const char *str3 = "test3";
+
+        string_addi(str, str2);
+        assert_that_charptr(str equals to "test2");
+        assert_that_charptr(str2 equals to "test2");
+
+        string_add(str, str3);
+        assert_that_charptr(str equals to "test2test3");
+        assert_that_charptr(str2 equals to "test2");
+        assert_that_charptr(str3 equals to "test3");
+      });
+
       it("adds a string to a string with a format", {
         char *str        = NULL;
         char *str2       = string_new("test2");

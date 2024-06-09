@@ -27,6 +27,14 @@ char *string_new(const char *initial_string);
     vector_add_n(self, other, strlen(other)); \
   } while(0)
 
+#define string_addi(self, other)                   \
+  do {                                             \
+    if(self == NULL) {                             \
+      vector_initialize(self);                     \
+    }                                              \
+    vector_add_n(self, other, string_size(other)); \
+  } while(0)
+
 /**
  * @brief Adds a formatted string into the builder
  * @param self -> The string to add to
