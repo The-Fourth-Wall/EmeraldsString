@@ -40,6 +40,55 @@ module(T_string_base, {
         assert_that(str isnot NULL);
         assert_that(string_equals(str, "anything"));
       });
+
+      it("creates a new string exactly 1 char long", {
+        char *str = string_new("a");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "a");
+      });
+
+      it("creates a new string exactly 2 chars long", {
+        char *str = string_new("ab");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "ab");
+      });
+
+      it("creates a new string exactly 4 chars long", {
+        char *str = string_new("1234");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "1234");
+      });
+
+      it("creates a new string exactly 8 chars long", {
+        char *str = string_new("12345678");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "12345678");
+      });
+
+      it("creates a new string exactly 15 chars long", {
+        char *str = string_new("123456789012345");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "123456789012345");
+      });
+
+      it("creates a new string exactly 16 chars long", {
+        char *str = string_new("1234567890123456");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "1234567890123456");
+      });
+
+      it("creates a new string exactly 17 chars long", {
+        char *str = string_new("12345678901234567");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "12345678901234567");
+      });
+
+      it("creates a new string exactly 32 chars long", {
+        char *str = string_new("1234567890123456789012345678901234567890");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to
+                            "1234567890123456789012345678901234567890");
+      });
     });
 
     context("on adding strings to a string", {
