@@ -2,8 +2,8 @@
 #include "../../src/string_base/string_base.h"
 #include "../../src/string_substring/string_substring.h"
 
-static void _external_string_add(char *str, const char *value) {
-  string_add(str, value);
+static void _external_string_add(char **str, const char *value) {
+  string_add(*str, value);
 }
 
 static void _external_vector_add_string2(char ***v, const char *value) {
@@ -364,13 +364,13 @@ module(T_string_base, {
     context("on external function string manipulation", {
       it("adds a string that has been initialized", {
         char *test = string_new("initial");
-        _external_string_add(test, " - test");
+        _external_string_add(&test, " - test");
         assert_that_charptr(test equals to "initial - test");
       });
 
       it("adds a string that has NOT been initialized", {
         char *test = string_new("");
-        _external_string_add(test, "this is an initial string");
+        _external_string_add(&test, "this is an initial string");
         assert_that_charptr(test equals to "this is an initial string");
       });
 
