@@ -4,8 +4,8 @@
   "version": "0.1.0",
 
   "dependencies": {
-    "EmeraldsBool": "Oblivious-Oblivious/EmeraldsBool",
-    "EmeraldsVector": "Oblivious-Oblivious/EmeraldsVector"
+    "EmeraldsBool": "The-Fourth-Wall/EmeraldsBool",
+    "EmeraldsVector": "The-Fourth-Wall/EmeraldsVector"
   },
 
   "dev-dependencies": {
