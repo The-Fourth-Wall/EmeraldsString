@@ -49,7 +49,8 @@ void _string_internal_addf(char **self, const char *f, ...);
  * @param self -> The string to use
  * @param c -> The character to add
  **/
-#define string_add_char(self, c) vector_add(self, c)
+#define string_add_char(self, c) \
+  (vector_add(self, c), (self)[vector_size(self)] = '\0')
 
 /**
  * @brief Add an integer to the builder

@@ -1,5 +1,6 @@
 #include "../../libs/cSpec/export/cSpec.h"
 #include "../../src/string_base/string_base.h"
+#include "../../src/string_substring/string_substring.h"
 
 static void _external_string_add(char *str, const char *value) {
   string_add(str, value);
@@ -156,6 +157,24 @@ module(T_string_base, {
         assert_that_charptr(str equals to "42.42");
         string_add_double_precision(str, 123.123);
         assert_that_charptr(str equals to "42.42123.123");
+      });
+    });
+
+    context("when adding characters to a string it remains null terminated", {
+      it("adds a simple character to a string", {
+        char *input = string_new("$var!+(@another?)");
+        char *token = string_substring(input, 0, 4);
+        string_skip_first(input, 4);
+        if(input[0] == '!' || input[0] == '?') {
+          assert_that_charptr(token equals to "$var");
+          assert_that_int(string_size(token) equals to 4);
+          string_add_char(token, input[0]);
+          string_skip_first(input, 1);
+          assert_that_charptr(token equals to "$var!");
+          assert_that_int(string_size(token) equals to 5);
+          assert_that_int(string_size(input) equals to 12);
+          assert_that_charptr(input equals to "+(@another?)");
+        }
       });
     });
 
