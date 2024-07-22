@@ -1,8 +1,15 @@
 #include "string_base.h"
 
-#include <stdarg.h> /* va_start, va_end, va_arg */
-#include <stdio.h>  /* printf, snprintf, vsnprintf */
-#include <string.h> /* strlen, strcmp, memmove */
+#include <stdio.h> /* printf, snprintf, vsnprintf */
+
+static void *simple_memcpy(void *dest, const void *src, size_t n) {
+  char *d       = (char *)dest;
+  const char *s = (const char *)src;
+  while(n--) {
+    *d++ = *s++;
+  }
+  return dest;
+}
 
 char *string_new(const char *initial_string) {
   char *self = NULL;
@@ -13,7 +20,7 @@ char *string_new(const char *initial_string) {
 void _string_internal_addf(char **self, const char *f, ...) {
   signed int result = 0;
   /* TODO - Bounds checks */
-  char buf[65536];
+  char buf[4096];
   va_list args;
 
   va_start(args, f)
@@ -51,7 +58,7 @@ void string_skip_first(char *self, ptrdiff_t len) {
   } else if(len > 0) {
     _vector_get_header(self)->size -= len;
     /* +1 to move the NULL. */
-    memmove(self, self + len, string_size(self) + 1);
+    simple_memcpy(self, self + len, string_size(self) + 1);
   }
 }
 

@@ -1,9 +1,6 @@
 #ifndef __EMERALDS_STRING_SUBSTRING_H_
 #define __EMERALDS_STRING_SUBSTRING_H_
 
-#include "../string_base/string_base.h"
-#include "../string_dup/string_dup.h"
-
 #include <stddef.h> /* ptrdiff_t */
 
 /**

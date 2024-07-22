@@ -3,8 +3,6 @@
 
 #include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
 
-#include <stddef.h> /* ptrdiff_t */
-#include <stdio.h>  /* vsnprintf */
 #include <string.h> /* strlen */
 
 /**
@@ -51,30 +49,6 @@ void _string_internal_addf(char **self, const char *f, ...);
  **/
 #define string_add_char(self, c) \
   (vector_add(self, c), (self)[vector_size(self)] = '\0')
-
-/**
- * @brief Add an integer to the builder
- * @param self -> The string to use
- * @param val -> The integer to add
- **/
-#define string_add_int(self, val)                                      \
-  do {                                                                 \
-    char __str_to_be_added[32];                                        \
-    snprintf(__str_to_be_added, sizeof(__str_to_be_added), "%d", val); \
-    string_add(self, __str_to_be_added);                               \
-  } while(0)
-
-/**
- * @brief Add a double to the builder
- * @param self -> The string to use
- * @param val -> The double to add
- **/
-#define string_add_double_precision(self, val)                         \
-  do {                                                                 \
-    char __str_to_be_added[64];                                        \
-    snprintf(__str_to_be_added, sizeof(__str_to_be_added), "%g", val); \
-    string_add(self, __str_to_be_added);                               \
-  } while(0)
 
 /**
  * @brief Remove data from the end of the builder

@@ -1,4 +1,5 @@
 #include "../../libs/cSpec/export/cSpec.h"
+#include "../../src/string_base/string_base.h"
 #include "../../src/string_dup/string_dup.h"
 
 module(T_string_dup, {

@@ -1,8 +1,6 @@
 #ifndef __EMERALDS_STRING_FUNCTIONAL_FUNCTIONS_H_
 #define __EMERALDS_STRING_FUNCTIONAL_FUNCTIONS_H_
 
-#include "../string_base/string_base.h"
-
 /**
  * @brief A generic function type used upon iterable data structures
  * @param -> An element belonging to an iterable

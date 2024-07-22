@@ -1,5 +1,7 @@
 #include "string_interpolation.h"
 
+#include "../string_base/string_base.h"
+
 #include <stdio.h> /* printf */
 
 void string_display(size_t argc, ...) {

@@ -129,6 +129,8 @@ module(T_string_base, {
         assert_that_charptr(str equals to "test2test3");
         assert_that_charptr(str2 equals to "test2");
         assert_that_charptr(str3 equals to "test3");
+        string_addf(str, "%s", "somethingelse");
+        assert_that_charptr(str equals to "test2test3somethingelse");
       });
     });
 
@@ -141,22 +143,6 @@ module(T_string_base, {
         assert_that_charptr(str equals to "ab");
         string_add_char(str, 'c');
         assert_that_charptr(str equals to "abc");
-      });
-
-      it("adds an integer to a string", {
-        char *str = NULL;
-        string_add_int(str, 42);
-        assert_that_charptr(str equals to "42");
-        string_add_int(str, 123);
-        assert_that_charptr(str equals to "42123");
-      });
-
-      it("adds a double to a string", {
-        char *str = NULL;
-        string_add_double_precision(str, 42.42);
-        assert_that_charptr(str equals to "42.42");
-        string_add_double_precision(str, 123.123);
-        assert_that_charptr(str equals to "42.42123.123");
       });
     });
 
