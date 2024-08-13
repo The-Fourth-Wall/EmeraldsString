@@ -93,6 +93,26 @@ module(T_string_base, {
     });
 
     context("on adding strings to a string", {
+      it("adds a null string to a null string", {
+        char *str = NULL;
+        string_add(str, NULL);
+        assert_that(str is NULL);
+      });
+
+      it("adds a null string to a valid string", {
+        char *str = string_new("test");
+        string_add(str, NULL);
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "test");
+      });
+
+      it("adds a valid string to a null string", {
+        char *str = NULL;
+        string_add(str, "test");
+        assert_that(str isnot NULL);
+        assert_that_charptr(str equals to "test");
+      });
+
       it("adds a string to a string", {
         char *str        = NULL;
         char *str2       = string_new("test2");

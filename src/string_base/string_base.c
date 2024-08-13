@@ -2,15 +2,6 @@
 
 #include <stdio.h> /* printf, snprintf, vsnprintf */
 
-static void *simple_memcpy(void *dest, const void *src, size_t n) {
-  char *d       = (char *)dest;
-  const char *s = (const char *)src;
-  while(n--) {
-    *d++ = *s++;
-  }
-  return dest;
-}
-
 char *string_new(const char *initial_string) {
   char *self = NULL;
   string_add(self, initial_string);
@@ -30,35 +21,6 @@ void _string_internal_addf(char **self, const char *f, ...) {
 
   if(result >= 0) {
     string_add(*self, buf);
-  }
-}
-
-void string_shorten(char *self, ptrdiff_t len) {
-  if(self == NULL) {
-    return;
-  }
-
-  if(len < 0) {
-    _vector_get_header(self)->size = 0;
-  } else if(len < (ptrdiff_t)string_size(self)) {
-    _vector_get_header(self)->size = len;
-  }
-  self[string_size(self)] = '\0';
-}
-
-void string_skip_first(char *self, ptrdiff_t len) {
-  if(self == NULL) {
-    return;
-  }
-
-  if(len >= (ptrdiff_t)string_size(self)) {
-    /* If we choose to drop more bytes than the
-        string has simply clear the char */
-    string_delete(self);
-  } else if(len > 0) {
-    _vector_get_header(self)->size -= len;
-    /* +1 to move the NULL. */
-    simple_memcpy(self, self + len, string_size(self) + 1);
   }
 }
 

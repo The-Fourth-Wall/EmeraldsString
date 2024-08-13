@@ -23,7 +23,7 @@ char **string_split(char *self, const char delimeter) {
       }
     }
 
-    vector_add(str_tokens, string_new(tmp));
+    vector_add(str_tokens, tmp);
   }
 
   return str_tokens;

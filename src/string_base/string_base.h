@@ -3,7 +3,7 @@
 
 #include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
 
-#include <string.h> /* strlen */
+#include <string.h> /* strlen, memcpy */
 
 /**
  * @brief Create an string
@@ -19,7 +19,7 @@ char *string_new(const char *initial_string);
  */
 #define string_add(self, other)               \
   do {                                        \
-    if(self == NULL) {                        \
+    if(self == NULL && other != NULL) {       \
       vector_initialize(self);                \
     }                                         \
     vector_add_n(self, other, strlen(other)); \
@@ -51,19 +51,55 @@ void _string_internal_addf(char **self, const char *f, ...);
   (vector_add(self, c), (self)[vector_size(self)] = '\0')
 
 /**
+ * @brief The length of the string contained in the builder
+ * @param self -> The string to use
+ * @return The current length of the string
+ **/
+#define string_size(self) vector_size(self)
+
+/**
+ * @brief Signed length
+ * @param self -> The string to use
+ * @return The current length of the string as a signed integer
+ */
+#define string_size_signed(self) vector_size_signed(self)
+
+/**
  * @brief Remove data from the end of the builder
  * @param self -> The string to use
- * @param len -> The new length of the string, anything after this length is
- *removed
+ * @param len -> The new length , anything after this length is removed
  **/
-void string_shorten(char *self, ptrdiff_t len);
+#define string_shorten(self, _len)                \
+  do {                                            \
+    ptrdiff_t len = (ptrdiff_t)(_len);            \
+    if((self) != NULL) {                          \
+      if(len < 0) {                               \
+        _vector_get_header(self)->size = 0;       \
+      } else if(len < vector_size_signed(self)) { \
+        _vector_get_header(self)->size = len;     \
+      }                                           \
+      (self)[string_size(self)] = '\0';           \
+    }                                             \
+  } while(0)
 
 /**
  * @brief Remove data from the beginning of the builder
  * @param self -> The string to use
  * @param len -> The length to remove
  **/
-void string_skip_first(char *self, ptrdiff_t len);
+#define string_skip_first(self, _len)                        \
+  do {                                                       \
+    ptrdiff_t len = (ptrdiff_t)(_len);                       \
+    if((self) != NULL) {                                     \
+      if(len >= vector_size_signed(self)) {                  \
+        string_delete(self);                                 \
+      } else if(len > 0) {                                   \
+        _vector_get_header(self)->size -= len;               \
+        /* NOTE +1 to move the NULL. */                      \
+        memcpy((self), (self) + len, string_size(self) + 1); \
+      }                                                      \
+    }                                                        \
+  } while(0)
 
 /**
  * @brief Ignores the last `len` characters of the string
@@ -78,13 +114,6 @@ void string_skip_first(char *self, ptrdiff_t len);
  * @param self -> The string to use
  **/
 #define string_delete(self) string_shorten(self, 0)
-
-/**
- * @brief The length of the string contained in the builder
- * @param self -> The string to use
- * @return The current length of the string
- **/
-#define string_size(self) vector_size(self)
 
 /**
  * @brief Checks if the char pointers of the two strings passed are the same

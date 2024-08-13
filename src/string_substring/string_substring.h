@@ -4,11 +4,10 @@
 #include <stddef.h> /* ptrdiff_t */
 
 /**
- * @brief Return a substring of our current string without modifying the
- *original
+ * @brief Get a substring of our current string without modifying the original
  * @param self -> The string builder we are using
- * @param from -> The point where we start our substring
- * @param to -> The point where we end our substring
+ * @param from_position -> The point where we start our substring
+ * @param to_position -> The point where we end our substring
  * @return A substring of a copy of the original string
  **/
 char *
