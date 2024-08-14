@@ -171,16 +171,14 @@ module(T_string_base, {
         char *input = string_new("$var!+(@another?)");
         char *token = string_substring(input, 0, 4);
         string_skip_first(input, 4);
-        if(input[0] == '!' || input[0] == '?') {
-          assert_that_charptr(token equals to "$var");
-          assert_that_int(string_size(token) equals to 4);
-          string_add_char(token, input[0]);
-          string_skip_first(input, 1);
-          assert_that_charptr(token equals to "$var!");
-          assert_that_int(string_size(token) equals to 5);
-          assert_that_int(string_size(input) equals to 12);
-          assert_that_charptr(input equals to "+(@another?)");
-        }
+        assert_that_charptr(token equals to "$var");
+        assert_that_int(string_size(token) equals to 4);
+        string_add_char(token, input[0]);
+        string_skip_first(input, 1);
+        assert_that_charptr(token equals to "$var!");
+        assert_that_int(string_size(token) equals to 5);
+        assert_that_int(string_size(input) equals to 12);
+        assert_that_charptr(input equals to "+(@another?)");
       });
     });
 
