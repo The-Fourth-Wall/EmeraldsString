@@ -24,49 +24,6 @@ void _string_internal_addf(char **self, const char *f, ...) {
   }
 }
 
-char *string_identifier(char *self) {
-  unsigned char add_underscore = 0;
-  char buf[32];
-  size_t i;
-  char *output    = NULL;
-  char *ret_value = NULL;
-
-  if(self == NULL) {
-    return "";
-  }
-
-  output = string_new("");
-
-  for(i = 0; i < string_size(self); i++) {
-    char c = self[i];
-
-    if(i == 0 && c >= '0' && c <= '9') {
-      string_add_char(output, '_');
-      string_add_char(output, c);
-    } else if((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') ||
-              (c >= 'a' && c != '_' && c <= 'z')) {
-      string_add_char(output, c);
-    } else if(c == 32) {
-      string_add_char(output, '_');
-    } else {
-      if(i == 0) {
-        add_underscore = 1;
-      }
-      snprintf(buf, 2, "%02x", c & 0xff);
-      string_add(output, buf);
-    }
-  }
-
-  if(add_underscore) {
-    ret_value = string_new("_");
-  } else {
-    ret_value = string_new("");
-  }
-  string_add(ret_value, output);
-
-  return ret_value;
-}
-
 char *string_remove_underscores(char *self) {
   char *self_dup = string_new("");
 

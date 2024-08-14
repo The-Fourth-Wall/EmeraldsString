@@ -124,14 +124,6 @@ void _string_internal_addf(char **self, const char *f, ...);
 #define string_equals(self, other) (strcmp((self), (other)) == 0)
 
 /**
- * @brief Turns a string into a valid identifier by
- *  converting illegal characters to hex codes
- * @param self -> The string to convert
- * @return A valid char pointer identifier
- **/
-char *string_identifier(char *self);
-
-/**
  * @brief Removes all instances of `_` underscores
  * @param self -> The string to use
  * @return The edited string

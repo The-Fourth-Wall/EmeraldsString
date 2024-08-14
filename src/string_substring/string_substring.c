@@ -6,6 +6,7 @@
 char *
 string_substring(char *self, ptrdiff_t from_position, ptrdiff_t to_position) {
   char *strdup = string_dup(self);
+
   if(to_position < 0) {
     string_ignore_last(strdup, -to_position);
   } else {
