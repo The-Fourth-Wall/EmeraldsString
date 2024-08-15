@@ -18,10 +18,10 @@
   "compile-flags": {
     "cc": "clang",
     "debug": {
-      "opt": "-Og -g",
+      "opt": "-Og",
       "version": "-std=c11",
-      "flags": "-Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic",
-      "warnings": "-Wno-extra-semi -Wno-int-conversion -Wno-incompatible-pointer-types -Wno-unused-function"
+      "flags": "-g",
+      "warnings": "-Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic -Wno-extra-semi -Wno-int-conversion -Wno-incompatible-pointer-types -Wno-unused-function"
     },
     "release": {
       "opt": "-O2",
@@ -30,7 +30,7 @@
       "warnings": "-Wno-extra-semi -Wno-int-conversion"
     },
     "test": {
-      "opt": "-Og -g",
+      "opt": "-Og",
       "version": "-std=c11",
       "flags": "-g",
       "warnings": "-Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic -Wno-extra-semi -Wno-unused-function"
