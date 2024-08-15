@@ -101,7 +101,6 @@ void _string_internal_addf(char **self, const char *f, ...);
         string_delete(self);                              \
       } else if(len > 0) {                                \
         _vector_get_header(self)->size -= len;            \
-        /* NOTE +1 to move the NULL. */                   \
         memmove((self), (self) + len, string_size(self)); \
       }                                                   \
     }                                                     \
