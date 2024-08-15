@@ -6,13 +6,13 @@
 #include "string_split/string_split.module.spec.h"
 #include "string_substring/string_substring.module.spec.h"
 
-spec_suite({
-  T_string_base();
-  T_string_dup();
-  T_string_functional_functions();
-  T_string_interpolation();
-  T_string_split();
-  T_string_substring();
-});
-
-int main(void) { run_spec_suite("all"); }
+int main(void) {
+  cspec_run_suite("all", {
+    T_string_base();
+    T_string_dup();
+    T_string_functional_functions();
+    T_string_interpolation();
+    T_string_split();
+    T_string_substring();
+  });
+}
