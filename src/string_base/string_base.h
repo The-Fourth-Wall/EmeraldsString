@@ -3,7 +3,7 @@
 
 #include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
 
-#include <string.h> /* strlen, memcpy */
+#include <string.h> /* strncmp, strlen, memcpy */
 
 /**
  * @brief Create an string
@@ -17,20 +17,26 @@ char *string_new(const char *initial_string);
  * @param self -> The string to use
  * @param other -> The string to add
  */
-#define string_add(self, other)               \
-  do {                                        \
-    if(self == NULL && other != NULL) {       \
-      vector_initialize(self);                \
-    }                                         \
-    vector_add_n(self, other, strlen(other)); \
+#define string_add(self, other)                   \
+  do {                                            \
+    if(self == NULL && other != NULL) {           \
+      vector_initialize(self);                    \
+    }                                             \
+    vector_add_n(self, other, strlen(other) + 1); \
+    if(other != NULL) {                           \
+      string_ignore_last(self, 1);                \
+    }                                             \
   } while(0)
 
-#define string_addi(self, other)                   \
-  do {                                             \
-    if(self == NULL) {                             \
-      vector_initialize(self);                     \
-    }                                              \
-    vector_add_n(self, other, string_size(other)); \
+#define string_addi(self, other)                       \
+  do {                                                 \
+    if(self == NULL) {                                 \
+      vector_initialize(self);                         \
+    }                                                  \
+    vector_add_n(self, other, string_size(other) + 1); \
+    if(other != NULL) {                                \
+      string_ignore_last(self, 1);                     \
+    }                                                  \
   } while(0)
 
 /**
@@ -87,18 +93,18 @@ void _string_internal_addf(char **self, const char *f, ...);
  * @param self -> The string to use
  * @param len -> The length to remove
  **/
-#define string_skip_first(self, _len)                        \
-  do {                                                       \
-    ptrdiff_t len = (ptrdiff_t)(_len);                       \
-    if((self) != NULL) {                                     \
-      if(len >= vector_size_signed(self)) {                  \
-        string_delete(self);                                 \
-      } else if(len > 0) {                                   \
-        _vector_get_header(self)->size -= len;               \
-        /* NOTE +1 to move the NULL. */                      \
-        memcpy((self), (self) + len, string_size(self) + 1); \
-      }                                                      \
-    }                                                        \
+#define string_skip_first(self, _len)                     \
+  do {                                                    \
+    ptrdiff_t len = (ptrdiff_t)(_len);                    \
+    if((self) != NULL) {                                  \
+      if(len >= vector_size_signed(self)) {               \
+        string_delete(self);                              \
+      } else if(len > 0) {                                \
+        _vector_get_header(self)->size -= len;            \
+        /* NOTE +1 to move the NULL. */                   \
+        memmove((self), (self) + len, string_size(self)); \
+      }                                                   \
+    }                                                     \
   } while(0)
 
 /**
@@ -121,7 +127,9 @@ void _string_internal_addf(char **self, const char *f, ...);
  * @param other -> The second string
  * @return A boolean signaling if the strings are equal
  **/
-#define string_equals(self, other) (strcmp((self), (other)) == 0)
+#define string_equals(self, other)            \
+  (string_size(self) == string_size(other) && \
+   strncmp((self), (other), string_size(self)) == 0)
 
 /**
  * @brief Removes all instances of `_` underscores
