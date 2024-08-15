@@ -1,6 +1,6 @@
 #include "string_base.h"
 
-#include <stdio.h> /* printf, snprintf, vsnprintf */
+#include <stdio.h> /* vsnprintf */
 
 char *string_new(const char *initial_string) {
   char *self = NULL;

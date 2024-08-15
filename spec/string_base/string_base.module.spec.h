@@ -26,20 +26,20 @@ module(T_string_base, {
       assert_that(str is NULL);
       string_add(str, "test");
       assert_that(str isnot NULL);
-      assert_that(string_equals(str, "test"));
+      assert_that_charptr(str equals to "test");
     });
 
     context("on initializing a string", {
       it("creates a new empty string", {
         char *str = string_new("");
         assert_that(str isnot NULL);
-        assert_that(string_equals(str, ""));
+        assert_that(string_equals(str, string_new("")));
       });
 
       it("creates a new non-empty string", {
         char *str = string_new("anything");
         assert_that(str isnot NULL);
-        assert_that(string_equals(str, "anything"));
+        assert_that(string_equals(str, string_new("anything")));
       });
 
       it("creates a new string exactly 1 char long", {

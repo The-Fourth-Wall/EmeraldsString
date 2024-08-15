@@ -8,7 +8,7 @@ char **string_split(char *self, const char delimeter) {
 
   if(self == NULL) {
     return NULL;
-  } else if(string_equals(self, "")) {
+  } else if(string_equals(self, string_new(""))) {
     vector_add(str_tokens, string_new(""));
   } else if(string_size(self) == 1 && self[0] == delimeter) {
     vector_add(str_tokens, string_new(""));
