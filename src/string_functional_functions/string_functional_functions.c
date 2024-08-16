@@ -14,7 +14,7 @@ char *string_map(char *self, EmeraldsStringLambda modifier) {
   } else {
     char *self_dup = string_new("");
     for(size_t i = 0; i < string_size(self); i++) {
-      string_add_char(self_dup, modifier(self[i]));
+      string_addf(self_dup, "%c", modifier(self[i]));
     }
     return self_dup;
   }

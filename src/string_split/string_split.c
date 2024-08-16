@@ -19,7 +19,7 @@ char **string_split(char *self, const char delimeter) {
         vector_add(str_tokens, string_new(tmp));
         string_free(tmp);
       } else {
-        string_add_char(tmp, self[i]);
+        string_addf(tmp, "%c", self[i]);
       }
     }
 

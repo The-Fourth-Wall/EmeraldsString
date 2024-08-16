@@ -49,14 +49,6 @@ void _string_internal_addf(char **self, const char *f, ...);
 #define string_addf(self, f, ...) _string_internal_addf(&self, f, __VA_ARGS__)
 
 /**
- * @brief Add a character to the builder
- * @param self -> The string to use
- * @param c -> The character to add
- **/
-#define string_add_char(self, c) \
-  (vector_add(self, c), (self)[vector_size(self)] = '\0')
-
-/**
  * @brief The length of the string contained in the builder
  * @param self -> The string to use
  * @return The current length of the string

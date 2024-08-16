@@ -83,6 +83,16 @@ module(T_string_split, {
         assert_that_charptr(list[0] equals to "");
         assert_that_charptr(list[1] equals to "");
       });
+
+      it("splits a multi line string with newlines", {
+        char *str   = string_new("(\"multi\nline\nstring\" puts)");
+        char **list = string_split(str, '\n');
+        assert_that(list isnot NULL);
+        assert_that_size_t(vector_size(list) equals to 3);
+        assert_that_charptr(list[0] equals to "(\"multi");
+        assert_that_charptr(list[1] equals to "line");
+        assert_that_charptr(list[2] equals to "string\" puts)");
+      });
     });
   });
 })
