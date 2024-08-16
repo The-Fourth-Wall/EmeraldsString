@@ -23,15 +23,3 @@ void _string_internal_addf(char **self, const char *f, ...) {
     string_add(*self, buf);
   }
 }
-
-char *string_remove_underscores(char *self) {
-  char *self_dup = string_new("");
-
-  for(size_t i = 0; i < string_size(self); i++) {
-    if(self[i] != '_') {
-      string_add_char(self_dup, self[i]);
-    }
-  }
-
-  return self_dup;
-}

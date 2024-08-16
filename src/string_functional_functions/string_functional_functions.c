@@ -19,17 +19,3 @@ char *string_map(char *self, EmeraldsStringLambda modifier) {
     return self_dup;
   }
 }
-
-char *string_filter(char *self, EmeraldsStringLambda filter) {
-  if(self == NULL) {
-    return NULL;
-  } else {
-    char *self_dup = string_new("");
-    for(size_t i = 0; i < string_size(self); i++) {
-      if(filter(self[i])) {
-        string_add_char(self_dup, self[i]);
-      }
-    }
-    return self_dup;
-  }
-}

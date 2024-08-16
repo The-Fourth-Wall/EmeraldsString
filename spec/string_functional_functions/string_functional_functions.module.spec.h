@@ -53,32 +53,5 @@ module(T_string_functional_functions, {
         assert_that_charptr(mapped equals to "pcmjwjpvt");
       });
     });
-
-    context("on filtering", {
-      it("filters a null string", {
-        char *str      = NULL;
-        char *filtered = string_filter(str, (EmeraldsStringLambda)filter);
-        assert_that(str is NULL);
-        assert_that(filtered is NULL);
-      });
-
-      it("filters an empty string", {
-        char *str      = string_new("");
-        char *filtered = string_filter(str, (EmeraldsStringLambda)filter);
-        assert_that(str isnot NULL);
-        assert_that(filtered isnot NULL);
-        assert_that_charptr(str equals to "");
-        assert_that_charptr(filtered equals to "");
-      });
-
-      it("filters a string", {
-        char *str      = string_new("oblivious");
-        char *filtered = string_filter(str, (EmeraldsStringLambda)filter);
-        assert_that(str isnot NULL);
-        assert_that(filtered isnot NULL);
-        assert_that_charptr(str equals to "oblivious");
-        assert_that_charptr(filtered equals to "blii");
-      });
-    });
   });
 })

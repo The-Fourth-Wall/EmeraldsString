@@ -28,12 +28,4 @@ void string_iterate(char *self, EmeraldsStringLambda apply);
  **/
 char *string_map(char *self, EmeraldsStringLambda modifier);
 
-/**
- * @brief Filters out characters from the string according to a function
- * @param self -> The string builder to filter
- * @param filter -> The labmda function to use
- * @return A new filtered string
- **/
-char *string_filter(char *self, EmeraldsStringLambda filter);
-
 #endif

@@ -133,9 +133,15 @@ void _string_internal_addf(char **self, const char *f, ...);
 /**
  * @brief Removes all instances of `_` underscores
  * @param self -> The string to use
- * @return The edited string
  */
-char *string_remove_underscores(char *self);
+#define string_remove_underscores(self)             \
+  do {                                              \
+    for(size_t i = 0; i < string_size(self); i++) { \
+      if(self[i] == '_') {                          \
+        vector_remove(self, i);                     \
+      }                                             \
+    }                                               \
+  } while(0)
 
 /**
  * @brief Frees the memory of the string

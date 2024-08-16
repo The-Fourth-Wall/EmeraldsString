@@ -276,17 +276,18 @@ module(T_string_base, {
     context("#string_remove_underscores", {
       it("removes underscores from strings", {
         char *test = string_new("a_word_with_underscores");
-        test       = string_remove_underscores(test);
+        string_remove_underscores(test);
         assert_that_charptr(test equals to "awordwithunderscores");
 
         test = string_new("42_000_000");
-        test = string_remove_underscores(test);
+        string_remove_underscores(test);
+        printf("test: %s\n", test);
         assert_that_charptr(test equals to "42000000");
       });
 
       it("returns the same string if it doesn't contain underscores", {
         char *test = string_new("42");
-        test       = string_remove_underscores(test);
+        string_remove_underscores(test);
         assert_that_charptr(test equals to "42");
       });
     });
