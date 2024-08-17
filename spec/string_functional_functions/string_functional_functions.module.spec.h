@@ -6,8 +6,6 @@ static void iterator(char c) { printf("iterating: %c\n", c); }
 
 static char map(char c) { return c + 1; }
 
-static char filter(char c) { return c < 'm'; }
-
 module(T_string_functional_functions, {
   describe("string functional functions", {
     context("on iterating", {
