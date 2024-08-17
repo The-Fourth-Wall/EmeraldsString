@@ -4,7 +4,6 @@
   "version": "0.1.0",
 
   "dependencies": {
-    "EmeraldsBool": "The-Fourth-Wall/EmeraldsBool",
     "EmeraldsPreprocessor": "The-Fourth-Wall/EmeraldsPreprocessor",
     "EmeraldsVector": "The-Fourth-Wall/EmeraldsVector"
   },
@@ -20,20 +19,14 @@
     "debug": {
       "opt": "-Og",
       "version": "-std=c11",
-      "flags": "-g",
-      "warnings": "-Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic -Wno-extra-semi -Wno-int-conversion -Wno-incompatible-pointer-types -Wno-unused-function"
+      "flags": "-g -fsanitize=address",
+      "warnings": "-Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic"
     },
     "release": {
       "opt": "-O2",
       "version": "-std=c2x",
       "flags": "",
       "warnings": "-Wno-extra-semi -Wno-int-conversion"
-    },
-    "test": {
-      "opt": "-Og",
-      "version": "-std=c11",
-      "flags": "-g",
-      "warnings": "-Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic -Wno-extra-semi -Wno-unused-function"
     }
   },
 
