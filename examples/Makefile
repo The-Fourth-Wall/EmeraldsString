@@ -1,26 +1,23 @@
 NAME = test
 
 CC = clang
-OPT = -O2
-VERSION = -std=c99
+OPT = -Og
+VERSION = -std=c89
 OUTPUT = a.out
 
-FLAGS = -Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic
-WARNINGS = -Wno-unused-function -Wno-macro-redefined
+FLAGS = -g  -Wall -Wextra -Werror -pedantic -pedantic-errors -Wpedantic
+WARNINGS =
 HEADERS =
-LIBS = $(shell find ../export -name "*.o") $(shell find ../libs -name "*.o")
+LIBS = $(shell find ../libs -name "*.a")
 
-INPUT = $(NAME).c
+INPUT = $(shell find ../src -name "*.c") $(NAME).c
 
 all: default
 
-make_library:
-	cd .. && em build lib release && cd examples
-
-default: make_library
-	$(CC) $(OPT) $(VERSION) $(HEADERS) $(FLAGS) $(WARNINGS) $(PRINT_WARNINGS) $(C99_WARNINGS) $(LIBS) -o $(OUTPUT) $(INPUT)
+default:
+	$(CC) $(OPT) $(VERSION) $(HEADERS) $(FLAGS) $(WARNINGS) $(LIBS) -o $(OUTPUT) $(INPUT)
 	./$(OUTPUT)
 
 clean:
 	cd .. && em clean && cd examples
-	rm -rf $(OUTPUT)
+	$(RM) -r $(OUTPUT) ./*.dSYM

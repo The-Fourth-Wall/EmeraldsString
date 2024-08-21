@@ -1,4 +1,4 @@
-#include "../export/EmeraldsString.h" /* IWYU pragma: keep */
+#include "../src/EmeraldsString.h" /* IWYU pragma: keep */
 
 #include <stdio.h>
 
@@ -17,10 +17,11 @@ char print_chars(char c) {
   return c;
 }
 
+/*
 static void string_interpolation_test(void) {
-  printf("TESTING STRING INTERPOLATION\n");
   char *str = "Hello World";
   char *num = "42";
+  printf("TESTING STRING INTERPOLATION\n");
   string_puts(
     "Num: `",
     num,
@@ -31,10 +32,11 @@ static void string_interpolation_test(void) {
   );
   string_puts("My num is: ", num, " and my string is: ", str, "\n");
 }
+*/
 
 static void string_iteration_test(void) {
-  printf("TESTING STRING ITERATION\n");
   char *iter = string_new("oblivious");
+  printf("TESTING STRING ITERATION\n");
   printf("Iteration of `o b l i v i o u s`\n");
   string_iterate(iter, (EmeraldsStringLambda)print_chars);
   printf("\n");
@@ -42,8 +44,8 @@ static void string_iteration_test(void) {
 }
 
 static void add_format_test(void) {
-  printf("TESTING STRING ADD FORMAT\n");
   char *format_buf = string_new("");
+  printf("TESTING STRING ADD FORMAT\n");
   string_addf(
     format_buf,
     "%d plus %d is %d, %s, (%g - %g = %g)",
@@ -60,23 +62,22 @@ static void add_format_test(void) {
 }
 
 static void string_split_test(void) {
+  const char delimeter_to_use = ' ';
+  char *str_to_split          = string_new("cut me in pieces");
+  char **list_of_tokens       = string_split(str_to_split, delimeter_to_use);
   printf("TESTING STRING SPLIT\n");
-  char *str_to_split     = string_new("cut me in pieces");
-  char *delimeter_to_use = string_new(" ");
-  char **list_of_tokens  = string_split(str_to_split, delimeter_to_use);
   vector_map(list_of_tokens, list_of_tokens, print_strings);
   printf("ORIGINAL: %s\n", str_to_split);
   printf("\n");
   vector_map(list_of_tokens, list_of_tokens, free_strings);
   string_free(str_to_split);
-  string_free(delimeter_to_use);
   vector_free(list_of_tokens);
 }
 
 static void string_equality_test(void) {
-  printf("TESTING STRING EQUALITY\n");
   char *one = string_new("test");
   char *two = string_new("test");
+  printf("TESTING STRING EQUALITY\n");
   if(string_equals(one, two)) {
     printf("strings `one(\"test\")` and `two(\"test\")` are equal\n\n");
   }
@@ -85,12 +86,12 @@ static void string_equality_test(void) {
 }
 
 static void string_litterbin_test(void) {
-  printf("TESTING (LITTERBIN) -> STRING\n");
   char *strValue1 = string_new("test value 1");
   char *strValue2 = string_new("test value 2");
   char *strValue3 = string_new("test value 3");
   char *strValue4 = string_new("test value 4");
   char *strValue5 = string_new("test value 5");
+  printf("TESTING (LITTERBIN) -> STRING\n");
   printf(
     "BEFORE: %s, %s, %s, %s, %s\n",
     strValue1,
@@ -107,7 +108,7 @@ static void string_litterbin_test(void) {
 }
 
 int main(void) {
-  string_interpolation_test();
+  /* string_interpolation_test(); */
   string_iteration_test();
   add_format_test();
   string_split_test();

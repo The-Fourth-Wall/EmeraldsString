@@ -5,17 +5,19 @@
 
 #include <stdlib.h> /* size_t */
 
-#define string_puts(...)                                                 \
-  string_display(                                                        \
-    PREPROCESSOR_EXPANSIONS_NUMBER_OF_ELEMENTS(__VA_ARGS__), __VA_ARGS__ \
-  )
+#if PREPROCESSOR_C_VERSION >= 1999
+  #define string_puts(...)                                                 \
+    string_display(                                                        \
+      PREPROCESSOR_EXPANSIONS_NUMBER_OF_ELEMENTS(__VA_ARGS__), __VA_ARGS__ \
+    )
 
-// TODO - Actual conversion to a string
+/* TODO - Actual conversion to a string */
 /**
  * @brief Used for string interpolation
  * @param argc -> The number of the arguments provided by the macros
  * @param __VA_ARGS__ -> The rest of the arguments to iterate through
  **/
 void string_display(size_t argc, ...);
+#endif
 
 #endif

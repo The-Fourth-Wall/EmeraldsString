@@ -14,12 +14,13 @@ char **string_split(char *self, const char delimeter) {
     vector_add(str_tokens, string_new(""));
     vector_add(str_tokens, string_new(""));
   } else {
-    for(size_t i = 0; i < string_size(self); i++) {
+    size_t i;
+    for(i = 0; i < string_size(self); i++) {
       if(self[i] == delimeter) {
         vector_add(str_tokens, string_new(tmp));
         string_free(tmp);
       } else {
-        string_addf(tmp, "%c", self[i]);
+        string_addf(&tmp, "%c", self[i]);
       }
     }
 
