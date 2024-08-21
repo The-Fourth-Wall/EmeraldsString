@@ -8,7 +8,7 @@ char *string_new(const char *initial_string) {
   return self;
 }
 
-void _string_internal_addf(char **self, const char *f, ...) {
+void string_addf(char **self, const char *f, ...) {
   signed int result = 0;
   /* TODO - Bounds checks */
   char buf[4096];

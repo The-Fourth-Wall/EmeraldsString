@@ -145,11 +145,11 @@ module(T_string_base, {
         char *str        = NULL;
         char *str2       = string_new("test2");
         const char *str3 = "test3";
-        string_addf(str, "%s%s", str2, str3, "ignored");
+        string_addf(&str, "%s%s", str2, str3, "ignored");
         assert_that_charptr(str equals to "test2test3");
         assert_that_charptr(str2 equals to "test2");
         assert_that_charptr(str3 equals to "test3");
-        string_addf(str, "%s", "somethingelse");
+        string_addf(&str, "%s", "somethingelse");
         assert_that_charptr(str equals to "test2test3somethingelse");
       });
     });
@@ -157,11 +157,11 @@ module(T_string_base, {
     context("on adding literals to a string", {
       it("adds a simple character to a string", {
         char *str = NULL;
-        string_addf(str, "%c", 'a');
+        string_addf(&str, "%c", 'a');
         assert_that_charptr(str equals to "a");
-        string_addf(str, "%c", 'b');
+        string_addf(&str, "%c", 'b');
         assert_that_charptr(str equals to "ab");
-        string_addf(str, "%c", 'c');
+        string_addf(&str, "%c", 'c');
         assert_that_charptr(str equals to "abc");
       });
     });
@@ -173,7 +173,7 @@ module(T_string_base, {
         string_skip_first(input, 4);
         assert_that_charptr(token equals to "$var");
         assert_that_int(string_size(token) equals to 4);
-        string_addf(token, "%c", input[0]);
+        string_addf(&token, "%c", input[0]);
         string_skip_first(input, 1);
         assert_that_charptr(token equals to "$var!");
         assert_that_int(string_size(token) equals to 5);
