@@ -125,13 +125,14 @@ void string_addf(char **self, const char *f, ...);
  * @brief Removes all instances of `_` underscores
  * @param self -> The string to use
  */
-#define string_remove_underscores(self)             \
-  do {                                              \
-    for(size_t i = 0; i < string_size(self); i++) { \
-      if(self[i] == '_') {                          \
-        vector_remove(self, i);                     \
-      }                                             \
-    }                                               \
+#define string_remove_underscores(self)      \
+  do {                                       \
+    size_t i;                                \
+    for(i = 0; i < string_size(self); i++) { \
+      if(self[i] == '_') {                   \
+        vector_remove(self, i);              \
+      }                                      \
+    }                                        \
   } while(0)
 
 /**
