@@ -117,9 +117,9 @@ void string_addf(char **self, const char *f, ...);
  * @param other -> The second string
  * @return A boolean signaling if the strings are equal
  **/
-#define string_equals(self, other)        \
-  (string_size(self) == strlen(other)) && \
-    (strncmp((self), (other), string_size(self)) == 0)
+#define string_equals(self, other)           \
+  ((string_size(self) == strlen((other))) && \
+   (strncmp((self), (other), string_size(self)) == 0))
 
 /**
  * @brief Removes all instances of `_` underscores
