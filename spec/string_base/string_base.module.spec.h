@@ -281,7 +281,6 @@ module(T_string_base, {
 
         test = string_new("42_000_000");
         string_remove_underscores(test);
-        printf("test: %s\n", test);
         assert_that_charptr(test equals to "42000000");
       });
 

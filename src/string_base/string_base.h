@@ -93,6 +93,7 @@ void string_addf(char **self, const char *f, ...);
       } else if(len > 0) {                                \
         _vector_get_header(self)->size -= len;            \
         memmove((self), (self) + len, string_size(self)); \
+        (self)[string_size(self)] = '\0';                 \
       }                                                   \
     }                                                     \
   } while(0)
@@ -110,6 +111,9 @@ void string_addf(char **self, const char *f, ...);
  * @param self -> The string to use
  **/
 #define string_delete(self) string_shorten(self, 0)
+
+#define string_remove(self, pos) \
+  (vector_remove(self, pos), (self)[string_size(self)] = '\0')
 
 /**
  * @brief Checks if the char pointers of the two strings passed are the same
@@ -130,7 +134,7 @@ void string_addf(char **self, const char *f, ...);
     size_t i;                                \
     for(i = 0; i < string_size(self); i++) { \
       if(self[i] == '_') {                   \
-        vector_remove(self, i);              \
+        string_remove(self, i);              \
       }                                      \
     }                                        \
   } while(0)
