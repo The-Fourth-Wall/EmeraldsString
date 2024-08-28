@@ -13,31 +13,35 @@
 char *string_new(const char *initial_string);
 
 /**
+ * @brief Adds a string with a cutoff of a given length
+ * @param self -> The string to use
+ * @param other -> The string to add
+ * @param len -> The length of characters to add
+ */
+#define string_addn(self, other, len)       \
+  do {                                      \
+    if((self) == NULL && (other) != NULL) { \
+      vector_initialize(self);              \
+    }                                       \
+    vector_add_n(self, other, (len) + 1);   \
+    if((other) != NULL) {                   \
+      string_ignore_last(self, 1);          \
+    }                                       \
+  } while(0)
+
+/**
  * @brief Adds a string into self
  * @param self -> The string to use
  * @param other -> The string to add
  */
-#define string_add(self, other)                   \
-  do {                                            \
-    if(self == NULL && other != NULL) {           \
-      vector_initialize(self);                    \
-    }                                             \
-    vector_add_n(self, other, strlen(other) + 1); \
-    if(other != NULL) {                           \
-      string_ignore_last(self, 1);                \
-    }                                             \
-  } while(0)
+#define string_add(self, other) string_addn(self, other, strlen((other)))
 
-#define string_addi(self, other)                       \
-  do {                                                 \
-    if(self == NULL) {                                 \
-      vector_initialize(self);                         \
-    }                                                  \
-    vector_add_n(self, other, string_size(other) + 1); \
-    if(other != NULL) {                                \
-      string_ignore_last(self, 1);                     \
-    }                                                  \
-  } while(0)
+/**
+ * @brief Adds an initialized string into self
+ * @param self -> The string to use
+ * @param other -> The string to add
+ */
+#define string_addi(self, other) string_addn(self, other, string_size(other))
 
 /**
  * @brief Adds a formatted string into the builder

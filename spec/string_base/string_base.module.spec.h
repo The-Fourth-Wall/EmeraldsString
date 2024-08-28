@@ -129,13 +129,13 @@ module(T_string_base, {
       it("adds an initialized string to a another string", {
         char *str        = NULL;
         char *str2       = string_new("test2");
-        const char *str3 = "test3";
+        const char *str3 = string_new("test3");
 
         string_addi(str, str2);
         assert_that_charptr(str equals to "test2");
         assert_that_charptr(str2 equals to "test2");
 
-        string_add(str, str3);
+        string_addi(str, str3);
         assert_that_charptr(str equals to "test2test3");
         assert_that_charptr(str2 equals to "test2");
         assert_that_charptr(str3 equals to "test3");
@@ -151,6 +151,19 @@ module(T_string_base, {
         assert_that_charptr(str3 equals to "test3");
         string_addf(&str, "%s", "somethingelse");
         assert_that_charptr(str equals to "test2test3somethingelse");
+      });
+
+      it("adds a string with a cutoff of a given length", {
+        char *str        = NULL;
+        char *str2       = string_new("test2");
+        const char *str3 = "test3";
+        string_addn(str, str2, 2);
+        assert_that_charptr(str equals to "te");
+        assert_that_charptr(str2 equals to "test2");
+        string_addn(str, str3, 3);
+        assert_that_charptr(str equals to "tetes");
+        assert_that_charptr(str2 equals to "test2");
+        assert_that_charptr(str3 equals to "test3");
       });
     });
 
