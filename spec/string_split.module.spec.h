@@ -1,6 +1,8 @@
-#include "../../libs/cSpec/export/cSpec.h"
-#include "../../src/string_base/string_base.h"
-#include "../../src/string_split/string_split.h"
+#ifndef __EMERALDS_STRING_SPLIT_MODULE_SPEC_H_
+#define __EMERALDS_STRING_SPLIT_MODULE_SPEC_H_
+
+#include "../libs/cSpec/export/cSpec.h"
+#include "../src/EmeraldsString.h"
 
 module(T_string_split, {
   describe("string split", {
@@ -96,3 +98,5 @@ module(T_string_split, {
     });
   });
 })
+
+#endif

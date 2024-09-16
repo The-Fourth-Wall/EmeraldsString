@@ -1,10 +1,10 @@
 #include "../libs/cSpec/export/cSpec.h"
-#include "string_base/string_base.module.spec.h"
-#include "string_dup/string_dup.module.spec.h"
-#include "string_functional_functions/string_functional_functions.module.spec.h"
-#include "string_interpolation/string_interpolation.module.spec.h"
-#include "string_split/string_split.module.spec.h"
-#include "string_substring/string_substring.module.spec.h"
+#include "string_base.module.spec.h"
+#include "string_dup.module.spec.h"
+#include "string_functional_functions.module.spec.h"
+#include "string_interpolation.module.spec.h"
+#include "string_split.module.spec.h"
+#include "string_substring.module.spec.h"
 
 int main(void) {
   cspec_run_suite("all", {

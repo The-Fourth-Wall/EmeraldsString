@@ -1,6 +1,8 @@
-#include "../../libs/cSpec/export/cSpec.h"
-#include "../../src/string_base/string_base.h"
-#include "../../src/string_substring/string_substring.h"
+#ifndef __EMERALDS_STRING_BASE_MODULE_SPEC_H_
+#define __EMERALDS_STRING_BASE_MODULE_SPEC_H_
+
+#include "../libs/cSpec/export/cSpec.h"
+#include "../src/EmeraldsString.h"
 
 static void _external_string_add(char **str, const char *value) {
   string_add(*str, value);
@@ -353,3 +355,5 @@ module(T_string_base, {
     });
   });
 })
+
+#endif

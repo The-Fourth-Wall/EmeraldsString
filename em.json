@@ -4,7 +4,6 @@
   "version": "0.1.0",
 
   "dependencies": {
-    "EmeraldsPreprocessor": "The-Fourth-Wall/EmeraldsPreprocessor",
     "EmeraldsVector": "The-Fourth-Wall/EmeraldsVector"
   },
 

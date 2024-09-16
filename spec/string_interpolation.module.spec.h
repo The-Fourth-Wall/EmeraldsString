@@ -1,6 +1,8 @@
-#include "../../libs/cSpec/export/cSpec.h"
-#include "../../src/string_base/string_base.h"
-#include "../../src/string_interpolation/string_interpolation.h"
+#ifndef __EMERALDS_STRING_INTERPOLATION_MODULE_SPEC_H_
+#define __EMERALDS_STRING_INTERPOLATION_MODULE_SPEC_H_
+
+#include "../libs/cSpec/export/cSpec.h"
+#include "../src/EmeraldsString.h"
 
 module(T_string_interpolation, {
   describe("string interpolation", {
@@ -20,3 +22,5 @@ module(T_string_interpolation, {
     });
   });
 })
+
+#endif

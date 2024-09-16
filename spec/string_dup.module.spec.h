@@ -1,6 +1,8 @@
-#include "../../libs/cSpec/export/cSpec.h"
-#include "../../src/string_base/string_base.h"
-#include "../../src/string_dup/string_dup.h"
+#ifndef __EMERALDS_STRING_DUP_MODULE_SPEC_H_
+#define __EMERALDS_STRING_DUP_MODULE_SPEC_H_
+
+#include "../libs/cSpec/export/cSpec.h"
+#include "../src/EmeraldsString.h"
 
 module(T_string_dup, {
   describe("string dup", {
@@ -39,3 +41,5 @@ module(T_string_dup, {
     });
   });
 })
+
+#endif

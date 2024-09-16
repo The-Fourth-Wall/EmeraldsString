@@ -1,6 +1,8 @@
-#include "../../libs/cSpec/export/cSpec.h"
-#include "../../src/string_base/string_base.h"
-#include "../../src/string_functional_functions/string_functional_functions.h"
+#ifndef __EMERALDS_STRING_FUNCTIONAL_FUNCTIONS_MODULE_SPEC_H_
+#define __EMERALDS_STRING_FUNCTIONAL_FUNCTIONS_MODULE_SPEC_H_
+
+#include "../libs/cSpec/export/cSpec.h"
+#include "../src/EmeraldsString.h"
 
 static void iterator(char c) { printf("iterating: %c\n", c); }
 
@@ -11,17 +13,17 @@ module(T_string_functional_functions, {
     context("on iterating", {
       it("iterates through a null string", {
         char *str = NULL;
-        string_iterate(str, (EmeraldsStringLambda)iterator);
+        string_iterate(str, iterator);
       });
 
       it("iterates through an empty string", {
         char *str = string_new("");
-        string_iterate(str, (EmeraldsStringLambda)iterator);
+        string_iterate(str, iterator);
       });
 
       it("iterates through a string", {
         char *str = string_new("oblivious");
-        string_iterate(str, (EmeraldsStringLambda)iterator);
+        string_iterate(str, iterator);
       });
     });
 
@@ -53,3 +55,5 @@ module(T_string_functional_functions, {
     });
   });
 })
+
+#endif
