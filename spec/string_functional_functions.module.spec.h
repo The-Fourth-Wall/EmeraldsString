@@ -13,17 +13,17 @@ module(T_string_functional_functions, {
     context("on iterating", {
       it("iterates through a null string", {
         char *str = NULL;
-        string_iterate(str, iterator);
+        string_iterate(str, (EmeraldsStringLambda)iterator);
       });
 
       it("iterates through an empty string", {
         char *str = string_new("");
-        string_iterate(str, iterator);
+        string_iterate(str, (EmeraldsStringLambda)iterator);
       });
 
       it("iterates through a string", {
         char *str = string_new("oblivious");
-        string_iterate(str, iterator);
+        string_iterate(str, (EmeraldsStringLambda)iterator);
       });
     });
 

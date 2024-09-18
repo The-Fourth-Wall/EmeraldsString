@@ -44,16 +44,10 @@ typedef char (*EmeraldsStringLambda)(char);
  * @param other -> The string to add
  * @param len -> The length of characters to add
  */
-#define string_addn(self, other, len)       \
-  do {                                      \
-    if((self) == NULL && (other) != NULL) { \
-      vector_initialize(self);              \
-    }                                       \
-    vector_add_n(self, other, (len) + 1);   \
-    if((other) != NULL) {                   \
-      string_ignore_last(self, 1);          \
-    }                                       \
-  } while(0)
+#define string_addn(self, other, len)                                 \
+  (((self) == NULL && (other) != NULL ? vector_initialize(self) : 0), \
+   (vector_add_n(self, other, (len) + 1)),                            \
+   ((other) != NULL ? string_ignore_last(self, 1) : 0))
 
 /**
  * @brief Adds a string into self
@@ -88,37 +82,35 @@ typedef char (*EmeraldsStringLambda)(char);
  * @param self -> The string to use
  * @param len -> The new length , anything after this length is removed
  **/
-#define string_shorten(self, _len)                \
-  do {                                            \
-    ptrdiff_t len = (ptrdiff_t)(_len);            \
-    if((self) != NULL) {                          \
-      if(len < 0) {                               \
-        _vector_get_header(self)->size = 0;       \
-      } else if(len < vector_size_signed(self)) { \
-        _vector_get_header(self)->size = len;     \
-      }                                           \
-      (self)[string_size(self)] = '\0';           \
-    }                                             \
-  } while(0)
+#define string_shorten(self, _len)                                    \
+  ((self) != NULL                                                     \
+     ? (((ptrdiff_t)(_len) < 0)                                       \
+          ? (_vector_get_header(self)->size = 0)                      \
+          : (((ptrdiff_t)(_len) < vector_size_signed(self))           \
+               ? (_vector_get_header(self)->size = (ptrdiff_t)(_len)) \
+               : 0),                                                  \
+        (self)[string_size(self)] = '\0',                             \
+        0)                                                            \
+     : 0)
 
 /**
  * @brief Remove data from the beginning of the builder
  * @param self -> The string to use
  * @param len -> The length to remove
  **/
-#define string_skip_first(self, _len)                     \
-  do {                                                    \
-    ptrdiff_t len = (ptrdiff_t)(_len);                    \
-    if((self) != NULL) {                                  \
-      if(len >= vector_size_signed(self)) {               \
-        string_delete(self);                              \
-      } else if(len > 0) {                                \
-        _vector_get_header(self)->size -= len;            \
-        memmove((self), (self) + len, string_size(self)); \
-        (self)[string_size(self)] = '\0';                 \
-      }                                                   \
-    }                                                     \
-  } while(0)
+#define string_skip_first(self, _len)                                     \
+  ((self) != NULL                                                         \
+     ? (((ptrdiff_t)(_len) >= vector_size_signed(self))                   \
+          ? (string_delete(self), 0)                                      \
+          : (((ptrdiff_t)(_len) > 0)                                      \
+               ? (_vector_get_header(self)->size -= (ptrdiff_t)(_len),    \
+                  memmove(                                                \
+                    (self), (self) + (ptrdiff_t)(_len), string_size(self) \
+                  ),                                                      \
+                  (self)[string_size(self)] = '\0',                       \
+                  0)                                                      \
+               : 0))                                                      \
+     : 0)
 
 /**
  * @brief Ignores the last `len` characters of the string
@@ -151,15 +143,15 @@ typedef char (*EmeraldsStringLambda)(char);
  * @brief Removes all instances of `_` underscores
  * @param self -> The string to use
  */
-#define string_remove_underscores(self)      \
-  do {                                       \
-    size_t i;                                \
-    for(i = 0; i < string_size(self); i++) { \
-      if(self[i] == '_') {                   \
-        string_remove(self, i);              \
-      }                                      \
-    }                                        \
-  } while(0)
+p_inline char *string_remove_underscores(char *self) {
+  size_t i;
+  for(i = 0; i < string_size(self); i++) {
+    if(self[i] == '_') {
+      string_remove(self, i);
+    }
+  }
+  return self;
+}
 
 /**
  * @brief Frees the memory of the string
@@ -200,20 +192,37 @@ p_inline void string_addf(char **self, const char *f, ...) {
   }
 }
 
+/**
+ * @brief Return a memory duplicate string
+ * @param self -> The string to duplicate
+ * @return The dup string
+ **/
 p_inline char *string_dup(char *self) {
   char *dup = NULL;
   string_add(dup, self);
   return dup;
 }
 
-#define string_iterate(self, apply)          \
-  do {                                       \
-    size_t i;                                \
-    for(i = 0; i < string_size(self); i++) { \
-      apply(self[i]);                        \
-    }                                        \
-  } while(0)
+/**
+ * @brief Iterates through the characters of the string
+ * @param self -> The string builder we want to iterate
+ * @param apply -> The function we apply to each character
+ **/
+p_inline char *string_iterate(char *self, EmeraldsStringLambda apply) {
+  size_t i;
+  for(i = 0; i < string_size(self); i++) {
+    apply(self[i]);
+  }
+  return self;
+}
 
+/**
+ * @brief Maps each character of the string according to a modifier function
+ * @param self -> The string builder to map
+ * @param modifier -> The EmeraldsStringLambda function to use for the
+ *conversions
+ * @return A new mapped string
+ **/
 p_inline char *string_map(char *self, EmeraldsStringLambda modifier) {
   if(self == NULL) {
     return NULL;
