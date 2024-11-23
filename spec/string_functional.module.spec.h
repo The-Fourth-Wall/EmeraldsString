@@ -1,14 +1,17 @@
-#ifndef __EMERALDS_STRING_FUNCTIONAL_FUNCTIONS_MODULE_SPEC_H_
-#define __EMERALDS_STRING_FUNCTIONAL_FUNCTIONS_MODULE_SPEC_H_
+#ifndef __EMERALDS_STRING_FUNCTIONAL_MODULE_SPEC_H_
+#define __EMERALDS_STRING_FUNCTIONAL_MODULE_SPEC_H_
 
 #include "../libs/cSpec/export/cSpec.h"
 #include "../src/EmeraldsString.h"
 
-static void iterator(char c) { printf("iterating: %c\n", c); }
+static char iterator(char c) {
+  printf("iterating: %c\n", c);
+  return c;
+}
 
 static char map(char c) { return c + 1; }
 
-module(T_string_functional_functions, {
+module(T_string_functional, {
   describe("string functional functions", {
     context("on iterating", {
       it("iterates through a null string", {
