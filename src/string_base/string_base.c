@@ -1,7 +1,5 @@
 #include "string_base.h"
 
-#include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
-
 #include <stdio.h> /* vsnprintf */
 
 char *string_new(const char *initial_string) {

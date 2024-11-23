@@ -1,6 +1,9 @@
 #ifndef __STRING_BASE_H_
 #define __STRING_BASE_H_
 
+#include "../../libs/EmeraldsBool/export/EmeraldsBool.h"
+#include "../../libs/EmeraldsVector/export/EmeraldsVector.h"
+
 #include <stddef.h> /* size_t */
 
 /**

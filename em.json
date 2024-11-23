@@ -4,6 +4,7 @@
   "version": "0.1.0",
 
   "dependencies": {
+    "EmeraldsBool": "The-Fourth-Wall/EmeraldsBool",
     "EmeraldsVector": "The-Fourth-Wall/EmeraldsVector"
   },
 
