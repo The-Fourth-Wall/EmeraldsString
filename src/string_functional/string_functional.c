@@ -21,7 +21,7 @@ void string_display(size_t argc, ...) {
   va_end(vars);
 
   printf("displaying: %s\n", self);
-  string_delete(self);
+  string_free(self);
 }
 #endif
 

@@ -77,4 +77,7 @@ bool string_equals(char *self, const char *other) {
   );
 }
 
-void string_free_(char **self) { vector_free(*self); }
+void string_free_(char **self) {
+  vector_free(*self);
+  *self = NULL;
+}

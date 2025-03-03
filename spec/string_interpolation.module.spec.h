@@ -14,11 +14,13 @@ module(T_string_interpolation, {
     it("displays an empty string", {
       char *str = string_new("");
       string_puts(str);
+      string_free(str);
     });
 
     it("displays a string", {
       char *str = string_new("test");
       string_puts(str);
+      string_free(str);
     });
   });
 })

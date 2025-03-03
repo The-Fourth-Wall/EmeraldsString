@@ -22,11 +22,13 @@ module(T_string_functional, {
       it("iterates through an empty string", {
         char *str = string_new("");
         string_iterate(str, (EmeraldsStringLambda)iterator);
+        string_free(str);
       });
 
       it("iterates through a string", {
         char *str = string_new("oblivious");
         string_iterate(str, (EmeraldsStringLambda)iterator);
+        string_free(str);
       });
     });
 
@@ -45,6 +47,8 @@ module(T_string_functional, {
         assert_that(mapped isnot NULL);
         assert_that_charptr(str equals to "");
         assert_that_charptr(mapped equals to "");
+        string_free(str);
+        string_free(mapped);
       });
 
       it("maps a string", {
@@ -54,6 +58,8 @@ module(T_string_functional, {
         assert_that(mapped isnot NULL);
         assert_that_charptr(str equals to "oblivious");
         assert_that_charptr(mapped equals to "pcmjwjpvt");
+        string_free(str);
+        string_free(mapped);
       });
     });
   });
