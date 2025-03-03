@@ -1,34 +1,7 @@
 #include "string_base.h"
 
-#include <stdarg.h>
-#include <stdio.h> /* vsprintf, vsnprintf */
-
-#if PREPROCESSOR_C_VERSION < 1999
-int vsnprintf(char *s, size_t n, const char *format, va_list ap) {
-  char *buf  = 0;
-  int result = vasprintf(&buf, format, ap);
-
-  if(!buf) {
-    return -1;
-  }
-  if(result < 0) {
-    free(buf);
-    return -1;
-  }
-
-  result = strlen(buf);
-  if(n > 0) {
-    if((long)n > result) {
-      memcpy(s, buf, result + 1);
-    } else {
-      memcpy(s, buf, n - 1);
-      s[n - 1] = 0;
-    }
-  }
-  free(buf);
-  return result;
-}
-#endif
+#include <limits.h> /* INT_MAX */
+#include <stdio.h>  /* vsnprintf */
 
 char *string_new(const char *initial_string) {
   char *self = NULL;
@@ -52,7 +25,8 @@ void string_addf(char **self, const char *f, ...) {
 
   va_start(args, f)
     ;
-    result = vsnprintf(buf, sizeof(buf), f, args);
+    // result = vsnprintf(buf, sizeof(buf), f, args);
+    result = vsprintf(buf, f, args);
   va_end(args);
 
   if(result >= 0) {
