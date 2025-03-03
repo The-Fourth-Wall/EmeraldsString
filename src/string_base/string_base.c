@@ -1,6 +1,34 @@
 #include "string_base.h"
 
-#include <stdio.h> /* vsnprintf */
+#include <stdarg.h>
+#include <stdio.h> /* vsprintf, vsnprintf */
+
+#if PREPROCESSOR_C_VERSION < 1999
+int vsnprintf(char *s, size_t n, const char *format, va_list ap) {
+  char *buf  = 0;
+  int result = vasprintf(&buf, format, ap);
+
+  if(!buf) {
+    return -1;
+  }
+  if(result < 0) {
+    free(buf);
+    return -1;
+  }
+
+  result = strlen(buf);
+  if(n > 0) {
+    if((long)n > result) {
+      memcpy(s, buf, result + 1);
+    } else {
+      memcpy(s, buf, n - 1);
+      s[n - 1] = 0;
+    }
+  }
+  free(buf);
+  return result;
+}
+#endif
 
 char *string_new(const char *initial_string) {
   char *self = NULL;
