@@ -25,8 +25,7 @@ void string_addf(char **self, const char *f, ...) {
 
   va_start(args, f)
     ;
-    // result = vsnprintf(buf, sizeof(buf), f, args);
-    result = vsprintf(buf, f, args);
+    result = vsnprintf(buf, sizeof(buf), f, args);
   va_end(args);
 
   if(result >= 0) {
